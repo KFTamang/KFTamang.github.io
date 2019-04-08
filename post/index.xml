@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Post-rsses on 技術ブログ</title>
-    <link>http://KFTamang.github.io/post/index.xml</link>
-    <description>Recent content in Post-rsses on 技術ブログ</description>
+    <title>Post-rsses on KFTamang Blog</title>
+    <link>https://KFTamang.github.io/post/index.xml</link>
+    <description>Recent content in Post-rsses on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sun, 07 Apr 2019 22:14:50 +0900</lastBuildDate>
-    <atom:link href="http://KFTamang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://KFTamang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>進めているプロジェクト</title>
-      <link>http://kftamang.github.io/post/indeces/</link>
+      <link>https://kftamang.github.io/post/indeces/</link>
       <pubDate>Sun, 07 Apr 2019 22:14:50 +0900</pubDate>
       
-      <guid>http://kftamang.github.io/post/indeces/</guid>
+      <guid>https://kftamang.github.io/post/indeces/</guid>
       <description>
 
-&lt;h2 id=&#34;テスト&#34;&gt;テスト。&lt;/h2&gt;
+&lt;h1 id=&#34;現在進めているプロジェクト&#34;&gt;現在進めているプロジェクト&lt;/h1&gt;
+
+&lt;p&gt;今現在個人で実現したいと思っているプロジェクトを列挙します。
+放置気味になっているものもあるので、ここに挙げることでモチベーションにしていきたいです。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ラズパイを用いた部屋の環境モニタ&lt;/li&gt;
+&lt;li&gt;すだれコリメータ(Rotation Modulation Collimator, RMC)シミュレータ
+( &lt;a href=&#34;https://github.com/KFTamang/RMCsimulator&#34;&gt;githubレポジトリ&lt;/a&gt; )&lt;/li&gt;
+&lt;li&gt;Arduinoを用いた倒立振子&lt;/li&gt;
+&lt;li&gt;音波干渉計&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
     <item>
       <title>ブログ始めました。</title>
-      <link>http://kftamang.github.io/post/test/</link>
+      <link>https://kftamang.github.io/post/test/</link>
       <pubDate>Sun, 07 Apr 2019 16:04:00 +0900</pubDate>
       
-      <guid>http://kftamang.github.io/post/test/</guid>
+      <guid>https://kftamang.github.io/post/test/</guid>
       <description>
 
 &lt;hr /&gt;
@@ -48,14 +59,23 @@
 
 &lt;hr /&gt;
 
-&lt;h2 id=&#34;このブログを作成した方法&#34;&gt;このブログを作成した方法&lt;/h2&gt;
+&lt;h1 id=&#34;このブログを作成した方法&#34;&gt;このブログを作成した方法&lt;/h1&gt;
 
-&lt;p&gt;以下のページを参考に、github pagesとHugoを用いて作成しました。
-&lt;a href=&#34;https://qiita.com/h6m3_u/items/5893a61091d258936716#3%E8%A8%98%E4%BA%8B%E3%81%AE%E4%BD%9C%E6%88%90&#34;&gt;https://qiita.com/h6m3_u/items/5893a61091d258936716#3%E8%A8%98%E4%BA%8B%E3%81%AE%E4%BD%9C%E6%88%90&lt;/a&gt;
-&lt;a href=&#34;https://blog.mismithportfolio.com/web/20160207hugomyblog#g&#34;&gt;https://blog.mismithportfolio.com/web/20160207hugomyblog#g&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以下のページを参考に、github pagesとHugoを用いて作成しました。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://qiita.com/h6m3_u/items/5893a61091d258936716#3%E8%A8%98%E4%BA%8B%E3%81%AE%E4%BD%9C%E6%88%90&#34;&gt; Hugo + GitHub Pages でブログのプロトタイプを構築してみた。 &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://blog.mismithportfolio.com/web/20160207hugomyblog#g&#34;&gt;【Hugo】ゴリラでも分かる静的サイトジェネレーターHugoでオリジナルテーマ作り&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://qiita.com/n0bisuke/items/4701481c3bca4df81b0b&#34;&gt;Hugoで新規記事を作成するときのTips的なメモ&lt;/a&gt;
+テーマはHuabing Zhao氏の&lt;a href=&#34;https://themes.gohugo.io/hugo-theme-cleanwhite/&#34;&gt;Clean White&lt;/a&gt;を使用しています。&lt;/p&gt;
 
 &lt;p&gt;ブログ自体がgithubの練習を兼ねています。
 まだ殺風景ですが、おいおい充実させていきたいと思っています。&lt;/p&gt;
+
+&lt;h1 id=&#34;参考文献&#34;&gt;参考文献&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://qiita.com/tbpgr/items/989c6badefff69377da7#-%E3%83%AA%E3%83%B3%E3%82%AF&#34;&gt;マークダウン記法&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
