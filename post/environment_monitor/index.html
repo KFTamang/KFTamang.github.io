@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>進めているプロジェクト-KFTamang Blog</title>
+    <title>environment_monitor-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/indeces/">
+    <link rel="canonical" href="/post/environment_monitor/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -156,18 +156,22 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF" title="環境モニタ">
+                            環境モニタ
+                        </a>
+                        
                     </div>
-                    <h1>進めているプロジェクト</h1>
+                    <h1>environment_monitor</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
 			
-		            KFTamang Blog
+			         &#34;&#34;
 			 
 			on 
-			Sunday, April 7, 2019
+			Saturday, April 13, 2019
                         
-                            <span id="/post/indeces/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/environment_monitor/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -327,24 +331,62 @@ $(function() {
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#現在進めているプロジェクト">現在進めているプロジェクト</a></li>
+<li><a href="#背景">背景</a></li>
+<li><a href="#機器の構成">機器の構成</a></li>
+<li><a href="#動作">動作</a></li>
+<li><a href="#参考文献">参考文献</a></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="現在進めているプロジェクト">現在進めているプロジェクト</h1>
+<h1 id="背景">背景</h1>
 
-<p>今現在個人で実現したいと思っているプロジェクトを列挙します。
-放置気味になっているものもあるので、ここに挙げることでモチベーションにしていきたいです。</p>
+<p>これから夏がやってくるとクーラーのお世話になる時間がながくなります。
+出かけている間にクーラーを付けっ放しにするのは（おそらく）不経済であるため、
+住人が全員外出してるのにクーラーがオンの状態になっているときはアラートを出して、
+外出先から運転を停止されることができると便利です。
+また、冬場には部屋を閉め切って暖房を使うため、二酸化炭素の濃度が上昇し
+生産性や健康に害を及ぼす可能性があります。
+そのほかの空気中のガスをモニターしておくことで換気などのアラートを出すことができます。</p>
+
+<p>また、気温や湿度のログを取っておくことで、電気節約や結露防止対策などの有効性検討の材料とすることができます。</p>
+
+<p>以上の点から共有スペースの気温・湿度、有害物質気体の濃度などを計測的に測定し、
+ログを残すとともにエアコンや換気扇を操作できるようにします。</p>
+
+<h1 id="機器の構成">機器の構成</h1>
+
+<p>使用した部品は以下の表に示しています。</p>
 
 <ul>
-<li>ラズパイを用いた部屋の環境モニタ</li>
-<li>すだれコリメータ(Rotation Modulation Collimator, RMC)シミュレータ
-( <a href="https://github.com/KFTamang/RMCsimulator">githubレポジトリ</a> )</li>
-<li>Arduinoを用いた倒立振子</li>
-<li>音波干渉計</li>
+<li>ラズベリーパイ3 モデルB+</li>
+<li>温湿度センサ DHT11</li>
+<li>炭素皮膜抵抗 1k ohm</li>
+<li>温度・気圧センサ BMP280</li>
+<li>赤外線LED *</li>
+<li>赤外線受信モジュール *</li>
 </ul>
+
+<p>(ただし*印は未実装)</p>
+
+<p>機器の構成は絵のとおり、ラズパイのGPIOにDHT11を接続し気温・湿度を取得します。
+接続していませんが、温度・気圧センサであるBMP280はI2C通信でラズパイと接続します。
+気温・湿度・気圧は10分ごとに計測し、IFTTT経由でGoogle Driveのスプレッドシートに記録します。
+またラズパイ上ではslackとの通信を行うslackbotを走らせ、
+専用チャンネルに「温度」を含む文章の投稿に反応して温湿度を投稿するようにしています。</p>
+
+<p>まだ未実装ですが、赤外線送信用のLEDと赤外線受信モジュールをGPIOに接続し、
+IRLRというPythonライブラリを利用して家電（今のところエアコン）を操作できるようにする予定です。</p>
+
+<h1 id="動作">動作</h1>
+
+<p>スクリーンショットのようにslackの投稿に反応して部屋の温度・湿度を返してくれます。
+<img src="/images/environmental_sonsor.png" alt="動作" /></p>
+
+<h1 id="参考文献">参考文献</h1>
+
+<p><a href="https://qiita.com/takjg/items/e6b8af53421be54b62c9">格安スマートリモコンの作り方 - Qiita</a></p>
 
 
                 
@@ -353,15 +395,10 @@ $(function() {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/test/" data-toggle="tooltip" data-placement="top" title="ブログ始めました。">&larr;
+                        <a href="/post/indeces/" data-toggle="tooltip" data-placement="top" title="進めているプロジェクト">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/environment_monitor/" data-toggle="tooltip" data-placement="top" title="environment_monitor">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

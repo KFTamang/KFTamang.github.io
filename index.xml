@@ -6,8 +6,66 @@
     <description>Recent content on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 07 Apr 2019 22:14:50 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 13 Apr 2019 01:16:41 +0900</lastBuildDate>
     <atom:link href="https://KFTamang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>environment_monitor</title>
+      <link>https://kftamang.github.io/post/environment_monitor/</link>
+      <pubDate>Sat, 13 Apr 2019 01:16:41 +0900</pubDate>
+      
+      <guid>https://kftamang.github.io/post/environment_monitor/</guid>
+      <description>
+
+&lt;h1 id=&#34;背景&#34;&gt;背景&lt;/h1&gt;
+
+&lt;p&gt;これから夏がやってくるとクーラーのお世話になる時間がながくなります。
+出かけている間にクーラーを付けっ放しにするのは（おそらく）不経済であるため、
+住人が全員外出してるのにクーラーがオンの状態になっているときはアラートを出して、
+外出先から運転を停止されることができると便利です。
+また、冬場には部屋を閉め切って暖房を使うため、二酸化炭素の濃度が上昇し
+生産性や健康に害を及ぼす可能性があります。
+そのほかの空気中のガスをモニターしておくことで換気などのアラートを出すことができます。&lt;/p&gt;
+
+&lt;p&gt;また、気温や湿度のログを取っておくことで、電気節約や結露防止対策などの有効性検討の材料とすることができます。&lt;/p&gt;
+
+&lt;p&gt;以上の点から共有スペースの気温・湿度、有害物質気体の濃度などを計測的に測定し、
+ログを残すとともにエアコンや換気扇を操作できるようにします。&lt;/p&gt;
+
+&lt;h1 id=&#34;機器の構成&#34;&gt;機器の構成&lt;/h1&gt;
+
+&lt;p&gt;使用した部品は以下の表に示しています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ラズベリーパイ3 モデルB+&lt;/li&gt;
+&lt;li&gt;温湿度センサ DHT11&lt;/li&gt;
+&lt;li&gt;炭素皮膜抵抗 1k ohm&lt;/li&gt;
+&lt;li&gt;温度・気圧センサ BMP280&lt;/li&gt;
+&lt;li&gt;赤外線LED *&lt;/li&gt;
+&lt;li&gt;赤外線受信モジュール *&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(ただし*印は未実装)&lt;/p&gt;
+
+&lt;p&gt;機器の構成は絵のとおり、ラズパイのGPIOにDHT11を接続し気温・湿度を取得します。
+接続していませんが、温度・気圧センサであるBMP280はI2C通信でラズパイと接続します。
+気温・湿度・気圧は10分ごとに計測し、IFTTT経由でGoogle Driveのスプレッドシートに記録します。
+またラズパイ上ではslackとの通信を行うslackbotを走らせ、
+専用チャンネルに「温度」を含む文章の投稿に反応して温湿度を投稿するようにしています。&lt;/p&gt;
+
+&lt;p&gt;まだ未実装ですが、赤外線送信用のLEDと赤外線受信モジュールをGPIOに接続し、
+IRLRというPythonライブラリを利用して家電（今のところエアコン）を操作できるようにする予定です。&lt;/p&gt;
+
+&lt;h1 id=&#34;動作&#34;&gt;動作&lt;/h1&gt;
+
+&lt;p&gt;スクリーンショットのようにslackの投稿に反応して部屋の温度・湿度を返してくれます。
+&lt;img src=&#34;https://KFTamang.github.io/images/environmental_sonsor.png&#34; alt=&#34;動作&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;参考文献&#34;&gt;参考文献&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://qiita.com/takjg/items/e6b8af53421be54b62c9&#34;&gt;格安スマートリモコンの作り方 - Qiita&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>進めているプロジェクト</title>
