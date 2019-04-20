@@ -1,55 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://KFTamang.github.io/categories/</loc>
-    <lastmod>2019-04-13T01:16:41+09:00</lastmod>
-    <priority>0</priority>
+    <loc>https://kftamang.github.io/</loc>
+    <lastmod>2019-04-20T21:47:09+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://KFTamang.github.io/</loc>
-    <lastmod>2019-04-13T01:16:41+09:00</lastmod>
-    <priority>0</priority>
+    <loc>https://kftamang.github.io/post/environment_monitor_2/</loc>
+    <lastmod>2019-04-20T21:47:09+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://KFTamang.github.io/post/</loc>
-    <lastmod>2019-04-13T01:16:41+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://KFTamang.github.io/tags/</loc>
-    <lastmod>2019-04-13T01:16:41+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://KFTamang.github.io/categories/tech/</loc>
-    <lastmod>2019-04-13T01:16:41+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://KFTamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/</loc>
-    <lastmod>2019-04-13T01:16:41+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://KFTamang.github.io/post/environment_monitor/</loc>
+    <loc>https://kftamang.github.io/post/environment_monitor/</loc>
     <lastmod>2019-04-13T01:16:41+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://KFTamang.github.io/post/indeces/</loc>
+    <loc>https://kftamang.github.io/post/indeces/</loc>
     <lastmod>2019-04-07T22:14:50+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://KFTamang.github.io/post/test/</loc>
+    <loc>https://kftamang.github.io/post/test/</loc>
     <lastmod>2019-04-07T16:04:00+09:00</lastmod>
   </url>
   
