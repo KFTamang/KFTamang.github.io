@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>環境モニタの製作-KFTamang Blog</title>
+    <title>ギアボックスとモータ駆動系の製作-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/environment_monitor/">
+    <link rel="canonical" href="/post/inverse_pendulum_1/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -156,12 +156,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF" title="環境モニタ">
-                            環境モニタ
+                        <a class="tag" href="/tags/%C3%A5%C3%A7" title="åç">
+                            åç
                         </a>
                         
                     </div>
-                    <h1>環境モニタの製作</h1>
+                    <h1>ギアボックスとモータ駆動系の製作</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -169,9 +169,9 @@
 			    KFTamang
 			 
 			on 
-			Saturday, April 13, 2019
+			Sunday, April 21, 2019
                         
-                            <span id="/post/environment_monitor/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/inverse_pendulum_1/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -331,64 +331,86 @@ $(function() {
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#背景">背景</a></li>
-<li><a href="#機器の構成">機器の構成</a></li>
-<li><a href="#動作">動作</a></li>
-<li><a href="#参考文献">参考文献</a></li>
+<li><a href="#倒立振子製作にむけて">倒立振子製作にむけて</a></li>
+<li><a href="#今回の内容">今回の内容</a></li>
+<li><a href="#ギアボックス-モータの組み立てと動作確認">ギアボックス、モータの組み立てと動作確認</a></li>
+<li><a href="#ドライバicによるモータ制御">ドライバICによるモータ制御</a></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="背景">背景</h1>
+<h1 id="倒立振子製作にむけて">倒立振子製作にむけて</h1>
 
-<p>これから夏がやってくるとクーラーのお世話になる時間がながくなります。
-出かけている間にクーラーを付けっ放しにするのは（おそらく）不経済であるため、
-住人が全員外出してるのにクーラーがオンの状態になっているときはアラートを出して、
-外出先から運転を停止されることができると便利です。
-また、冬場には部屋を閉め切って暖房を使うため、二酸化炭素の濃度が上昇し
-生産性や健康に害を及ぼす可能性があります。
-そのほかの空気中のガスをモニターしておくことで換気などのアラートを出すことができます。</p>
+<p>倒立振子（とうりつしんし）とは、棒の先に重りをつけた振子を逆さに立てた系のことです。
+当然そのままでは倒れてしまいますが、制御を加えることで逆立ちを維持させることができます。
+フィードバック制御の課題としてよく取り上げられる題材であり、わたしはArduinoの練習ということで製作してみたいと思います。</p>
 
-<p>また、気温や湿度のログを取っておくことで、電気節約や結露防止対策などの有効性検討の材料とすることができます。</p>
+<h1 id="今回の内容">今回の内容</h1>
 
-<p>以上の点から共有スペースの気温・湿度、有害物質気体の濃度などを計測的に測定し、
-ログを残すとともにエアコンや換気扇を操作できるようにします。</p>
+<p>倒立振子には制御を行う演算系と、実際の制御を行う機械系が必要になります。
+今回は機械系としてDCモータでタイヤを駆動する1次元系にしました。</p>
 
-<h1 id="機器の構成">機器の構成</h1>
-
-<p>使用した部品は以下の表に示しています。</p>
+<p>以下に部品のリストを示します。</p>
 
 <ul>
-<li>ラズベリーパイ3 モデルB+</li>
-<li>温湿度センサ DHT11</li>
-<li>炭素皮膜抵抗 1k ohm</li>
-<li>温度・気圧センサ BMP280 *</li>
-<li>赤外線LED *</li>
-<li>赤外線受信モジュール *</li>
+<li><a href="https://www.tamiya.com/japan/products/70093/index.html">3速クランクギアボックスセット - タミヤ</a></li>
+<li><a href="https://www.tamiya.com/japan/products/94380/index.html">DCモータ FA-130 - タミヤ</a></li>
+<li><a href="https://www.tamiya.com/japan/products/70096/index.html">オフロードタイヤセット - タミヤ</a></li>
+<li><a href="http://akizukidenshi.com/catalog/g/gK-09848/">ＤＲＶ８８３５使用ステッピング＆ＤＣモータドライバモジュール - 秋月電子</a></li>
 </ul>
 
-<p>(ただし*印は未実装)</p>
+<p>モータは親の顔よりよく見たミニ４駆用DCモータです。これはマブチモータ互換品であり、マブチ製品の型番はFA-130RAというようです。
+性能表は<a href="https://product.mabuchi-motor.co.jp/detail.html?id=9">ここ</a>にあります。</p>
 
-<p>機器の構成は絵のとおり、ラズパイのGPIOにDHT11を接続し気温・湿度を取得します。
-接続していませんが、温度・気圧センサであるBMP280はI2C通信でラズパイと接続します。
-気温・湿度・気圧は10分ごとに計測し、IFTTT経由でGoogle Driveのスプレッドシートに記録します。
-またラズパイ上ではslackとの通信を行うslackbotを走らせ、
-専用チャンネルに「温度」を含む文章の投稿に反応して温湿度を投稿するようにしています。</p>
+<p><img src="/images/ScreenShot2019-04-21at131244.png" alt="モータ性能表" /></p>
 
-<p>まだ未実装ですが、赤外線送信用のLEDと赤外線受信モジュールをGPIOに接続し、
-IRLRというPythonライブラリを利用して家電（今のところエアコン）を操作できるようにする予定です。</p>
+<p>これを見ると、電圧は1.5-3.0Vのようです。ネット上でロボコンなどの記事を見ると過電圧をかけることも可能なようですが、
+定格に準拠したいと思います。</p>
 
-<h1 id="動作">動作</h1>
+<p>今回はこのモータを秋月のドライバICキットで動かすところまでやりたいと思います。</p>
 
-<p>スクリーンショットのようにslackの投稿に反応して部屋の温度・湿度を返してくれます。
-<img src="/images/environmental_sonsor.png" alt="動作" /></p>
+<h1 id="ギアボックス-モータの組み立てと動作確認">ギアボックス、モータの組み立てと動作確認</h1>
 
-<h1 id="参考文献">参考文献</h1>
+<p>説明書に沿って組み立てます。ギア比は中速(<sup>1</sup>&frasl;<sub>58</sub>.2減速)を選びました。
+モータを3Vに接続してのテストがこちら。</p>
 
-<p><a href="https://qiita.com/takjg/items/e6b8af53421be54b62c9">格安スマートリモコンの作り方 - Qiita</a></p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">タミヤ始め <a href="https://t.co/LkaVeCp9Dz">pic.twitter.com/LkaVeCp9Dz</a></p>&mdash; 宇宙のタマン族@NT金沢6/29,30 (@KFTamang) <a href="https://twitter.com/KFTamang/status/1119834419919855616?ref_src=twsrc%5Etfw">April 21, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<p><a href="https://vintagechips.wordpress.com/2013/10/05/%E8%B5%A4%E5%A4%96%E7%B7%9Aled%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%E5%9B%9E%E8%B7%AF%E3%81%AE%E6%B1%BA%E5%AE%9A%E7%89%88/">赤外線LEDドライブ回路の決定版 - 電脳伝説</a></p>
+
+<h1 id="ドライバicによるモータ制御">ドライバICによるモータ制御</h1>
+
+<p>秋月のモータドライバICキットでモータをコントロールできるかテストします。
+今回購入したキットにはDRV8835が使用してあります。
+この<a href="http://akizukidenshi.com/download/ds/ti/drv8835.pdf">DRV8835のデータシート</a>を見ると、
+定格1.5Aのチャンネルが二つあり、並列に繋げることで最大3Aまでドライブできるようです。
+FA-130の性能表を見ると無負荷(NO LOAD)で0.20A、静止時(STALL)で2.20Aの電流が流れるとのことです。
+本番では偶然壁にぶつかってしまうこともあると思うので2chを並列に接続しますが、
+今のテストでは1chだけでいいでしょう。</p>
+
+<p><img src="/images/ScreenShot2019-04-21at144952.png" alt="DRV8835" /></p>
+
+<p>ブレッドボードに動作テスト用の回路を組みます。
+DRV8835に電源を与えて入力の2つの入力のロジックレベルを変えてやると、
+表にしたがって回転方向が変化します。</p>
+
+<p><img src="/images/P_20190421_155506_vHDR_Auto.jpg" alt="ブレッドボードテスト" />
+ブレッドボードでテストをしている様子。
+モバイルバッテリーから電圧を3.3Vへ落としてICへ供給している。反対側にはモータ駆動用の電池が繋がっている。</p>
+
+<p>入出力の対応には2種類のモードがあり、それぞれIN/INモードとPHASE/ENABLEモードと呼ばれています。
+IN/INモードではCoast(空転)が使えますが、ReverseのときにON/OFFがややこしくなります。
+その点、PHASE/ENABLEモードではCoastが使えない代わりに、ReverseでもON/OFFの操作がForwardと同じになります。</p>
+
+<p>倒立振子の運動を考えると、常に制御していないと倒れてしまうことからCoastは必要ない代わりに、
+運動は前進と後進が対称です。
+PWMで速度の調整を行いたいことから、動作モードはPHASE/ENABLEが適していることがわかりました。</p>
+
+<p><img src="/images/ScreenShot2019-04-21at154930.png" alt="ロジック表" />
+入力と出力の対応表。</p>
+
+<p>次回はArduinoを用いてPWMでの回転速度制御を行う予定です。</p>
 
 
                 
@@ -397,15 +419,10 @@ IRLRというPythonライブラリを利用して家電（今のところエア�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/indeces/" data-toggle="tooltip" data-placement="top" title="進めているプロジェクト">&larr;
+                        <a href="/post/environment_monitor_2/" data-toggle="tooltip" data-placement="top" title="赤外線リモコンをラズパイから操作する">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/environment_monitor_2/" data-toggle="tooltip" data-placement="top" title="赤外線リモコンをラズパイから操作する">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

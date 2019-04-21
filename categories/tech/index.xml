@@ -9,6 +9,88 @@
     <atom:link href="https://KFTamang.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>ギアボックスとモータ駆動系の製作</title>
+      <link>https://kftamang.github.io/post/inverse_pendulum_1/</link>
+      <pubDate>Sun, 21 Apr 2019 12:49:27 +0900</pubDate>
+      
+      <guid>https://kftamang.github.io/post/inverse_pendulum_1/</guid>
+      <description>
+
+&lt;h1 id=&#34;倒立振子製作にむけて&#34;&gt;倒立振子製作にむけて&lt;/h1&gt;
+
+&lt;p&gt;倒立振子（とうりつしんし）とは、棒の先に重りをつけた振子を逆さに立てた系のことです。
+当然そのままでは倒れてしまいますが、制御を加えることで逆立ちを維持させることができます。
+フィードバック制御の課題としてよく取り上げられる題材であり、わたしはArduinoの練習ということで製作してみたいと思います。&lt;/p&gt;
+
+&lt;h1 id=&#34;今回の内容&#34;&gt;今回の内容&lt;/h1&gt;
+
+&lt;p&gt;倒立振子には制御を行う演算系と、実際の制御を行う機械系が必要になります。
+今回は機械系としてDCモータでタイヤを駆動する1次元系にしました。&lt;/p&gt;
+
+&lt;p&gt;以下に部品のリストを示します。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tamiya.com/japan/products/70093/index.html&#34;&gt;3速クランクギアボックスセット - タミヤ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tamiya.com/japan/products/94380/index.html&#34;&gt;DCモータ FA-130 - タミヤ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tamiya.com/japan/products/70096/index.html&#34;&gt;オフロードタイヤセット - タミヤ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://akizukidenshi.com/catalog/g/gK-09848/&#34;&gt;ＤＲＶ８８３５使用ステッピング＆ＤＣモータドライバモジュール - 秋月電子&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;モータは親の顔よりよく見たミニ４駆用DCモータです。これはマブチモータ互換品であり、マブチ製品の型番はFA-130RAというようです。
+性能表は&lt;a href=&#34;https://product.mabuchi-motor.co.jp/detail.html?id=9&#34;&gt;ここ&lt;/a&gt;にあります。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://KFTamang.github.io/images/ScreenShot2019-04-21at131244.png&#34; alt=&#34;モータ性能表&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;これを見ると、電圧は1.5-3.0Vのようです。ネット上でロボコンなどの記事を見ると過電圧をかけることも可能なようですが、
+定格に準拠したいと思います。&lt;/p&gt;
+
+&lt;p&gt;今回はこのモータを秋月のドライバICキットで動かすところまでやりたいと思います。&lt;/p&gt;
+
+&lt;h1 id=&#34;ギアボックス-モータの組み立てと動作確認&#34;&gt;ギアボックス、モータの組み立てと動作確認&lt;/h1&gt;
+
+&lt;p&gt;説明書に沿って組み立てます。ギア比は中速(&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;58&lt;/sub&gt;.2減速)を選びました。
+モータを3Vに接続してのテストがこちら。&lt;/p&gt;
+
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;ja&#34; dir=&#34;ltr&#34;&gt;タミヤ始め &lt;a href=&#34;https://t.co/LkaVeCp9Dz&#34;&gt;pic.twitter.com/LkaVeCp9Dz&lt;/a&gt;&lt;/p&gt;&amp;mdash; 宇宙のタマン族@NT金沢6/29,30 (@KFTamang) &lt;a href=&#34;https://twitter.com/KFTamang/status/1119834419919855616?ref_src=twsrc%5Etfw&#34;&gt;April 21, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+
+&lt;h1 id=&#34;ドライバicによるモータ制御&#34;&gt;ドライバICによるモータ制御&lt;/h1&gt;
+
+&lt;p&gt;秋月のモータドライバICキットでモータをコントロールできるかテストします。
+今回購入したキットにはDRV8835が使用してあります。
+この&lt;a href=&#34;http://akizukidenshi.com/download/ds/ti/drv8835.pdf&#34;&gt;DRV8835のデータシート&lt;/a&gt;を見ると、
+定格1.5Aのチャンネルが二つあり、並列に繋げることで最大3Aまでドライブできるようです。
+FA-130の性能表を見ると無負荷(NO LOAD)で0.20A、静止時(STALL)で2.20Aの電流が流れるとのことです。
+本番では偶然壁にぶつかってしまうこともあると思うので2chを並列に接続しますが、
+今のテストでは1chだけでいいでしょう。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://KFTamang.github.io/images/ScreenShot2019-04-21at144952.png&#34; alt=&#34;DRV8835&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ブレッドボードに動作テスト用の回路を組みます。
+DRV8835に電源を与えて入力の2つの入力のロジックレベルを変えてやると、
+表にしたがって回転方向が変化します。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://KFTamang.github.io/images/P_20190421_155506_vHDR_Auto.jpg&#34; alt=&#34;ブレッドボードテスト&#34; /&gt;
+ブレッドボードでテストをしている様子。
+モバイルバッテリーから電圧を3.3Vへ落としてICへ供給している。反対側にはモータ駆動用の電池が繋がっている。&lt;/p&gt;
+
+&lt;p&gt;入出力の対応には2種類のモードがあり、それぞれIN/INモードとPHASE/ENABLEモードと呼ばれています。
+IN/INモードではCoast(空転)が使えますが、ReverseのときにON/OFFがややこしくなります。
+その点、PHASE/ENABLEモードではCoastが使えない代わりに、ReverseでもON/OFFの操作がForwardと同じになります。&lt;/p&gt;
+
+&lt;p&gt;倒立振子の運動を考えると、常に制御していないと倒れてしまうことからCoastは必要ない代わりに、
+運動は前進と後進が対称です。
+PWMで速度の調整を行いたいことから、動作モードはPHASE/ENABLEが適していることがわかりました。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://KFTamang.github.io/images/ScreenShot2019-04-21at154930.png&#34; alt=&#34;ロジック表&#34; /&gt;
+入力と出力の対応表。&lt;/p&gt;
+
+&lt;p&gt;次回はArduinoを用いてPWMでの回転速度制御を行う予定です。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>赤外線リモコンをラズパイから操作する</title>
       <link>https://kftamang.github.io/post/environment_monitor_2/</link>
       <pubDate>Sat, 20 Apr 2019 21:47:09 +0900</pubDate>
