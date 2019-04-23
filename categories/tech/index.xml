@@ -9,6 +9,95 @@
     <atom:link href="https://KFTamang.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>モータドライバのPWM制御のテスト</title>
+      <link>https://kftamang.github.io/post/inverse_pendulum_2/</link>
+      <pubDate>Tue, 23 Apr 2019 14:04:18 +0900</pubDate>
+      
+      <guid>https://kftamang.github.io/post/inverse_pendulum_2/</guid>
+      <description>
+
+&lt;h1 id=&#34;これまで&#34;&gt;これまで&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://kftamang.github.io/post/inverse_pendulum_1/&#34;&gt;前回の記事&lt;/a&gt;でモータドライバIC DRV8835の動作テストを行い、
+無事にDCモータ(FA-130)が駆動できることを確認しました。
+しかしこのままではモータの動作は順方向逆方向に最大出力の運転しかできません。
+倒立振子を製作するには、0%から100%の間で出力を連続的に変化させてモータを駆動する必要があります。&lt;/p&gt;
+
+&lt;p&gt;今回はPWM方式を用いてモータの出力を変化させるテストをしました。&lt;/p&gt;
+
+&lt;h1 id=&#34;pwm方式&#34;&gt;PWM方式&lt;/h1&gt;
+
+&lt;p&gt;PWMとはPulse Width Modulationの略で、High/Lowの2値しかとらない信号線一本で連続的な量を送る変調方式の一種です。
+周期的なパルスを送信する際に、パルスのDuty比(Highである時間とLowである時間の比)によって連続量を表現します。
+受け手の時間応答よりも十分早い周波数でパルスを送ることで、実効的には時間平均が取られた値を送ることができます。
+今回使用したArduino nanoではPWMの周波数は約490Hzであり、モータの応答に対して十分早いため回転スピードを連続的に変化させることができます。&lt;/p&gt;
+
+&lt;h1 id=&#34;実験系&#34;&gt;実験系&lt;/h1&gt;
+
+&lt;p&gt;PWM信号を送るため、Arduino nanoを使用しました。
+ArduinoはPWM信号を送るためのanalogWrite()関数が用意されており、
+簡単に特定のピンから約490HzのPWM信号を出力できます。（一部のピンでは倍の周波数で出る。）
+またDRV8835をPHASE/ENABLEモードで動作させるにあたり、順転逆転の制御のためのPHASE信号も必要となります。&lt;/p&gt;
+
+&lt;p&gt;Arduino nanoの3.3V,GND,PIN9,PIN8をそれぞれDRV8835のVCC,GND,AENABLE,APHASEにつなぎました。
+PHASE/ENABLEモードで動作させるためDRV8835のMODEピンは3.3Vに直結します。&lt;/p&gt;
+
+&lt;p&gt;DRV8835のVM,GND,AOUT1/AOUT2を電池、モータに繋いで準備完了です。&lt;/p&gt;
+
+&lt;h1 id=&#34;テスト用のarduinoスケッチ&#34;&gt;テスト用のArduinoスケッチ&lt;/h1&gt;
+
+&lt;p&gt;以下にテストに使用したスケッチを置いておきます。
+出力を0%からほぼ100%に上げ、また0%に戻すのを順転方向と逆転方向について交互に繰り返すだけです。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp:PWM_test&#34;&gt;int pwm_out = 9;
+int phase = 8;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(pwm_out, OUTPUT);
+  pinMode(phase, OUTPUT);
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  digitalWrite(phase, HIGH);
+  for (int i = 0; i &amp;lt; 25; ++i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+  for (int i = 25; i &amp;gt; 0; --i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+  digitalWrite(phase, LOW);
+  for (int i = 0; i &amp;lt; 25; ++i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+  for (int i = 25; i &amp;gt; 0; --i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;結果&#34;&gt;結果&lt;/h1&gt;
+
+&lt;p&gt;意図したとおりにモータの出力が変化してくれます。
+車輪に目印を貼って回転速度がわかる様にすればよかったですね。&lt;/p&gt;
+
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;ja&#34; dir=&#34;ltr&#34;&gt;PWMでのモーター制御 &lt;a href=&#34;https://t.co/Poghg9aePv&#34;&gt;pic.twitter.com/Poghg9aePv&lt;/a&gt;&lt;/p&gt;&amp;mdash; 宇宙のタマン族@NT金沢6/29,30 (@KFTamang) &lt;a href=&#34;https://twitter.com/KFTamang/status/1120312074247081985?ref_src=twsrc%5Etfw&#34;&gt;April 22, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+
+&lt;h1 id=&#34;次回予告&#34;&gt;次回予告&lt;/h1&gt;
+
+&lt;p&gt;次はいよいよ傾きセンサと組み合わせていきたいと思います。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>ギアボックスとモータ駆動系の製作</title>
       <link>https://kftamang.github.io/post/inverse_pendulum_1/</link>
       <pubDate>Sun, 21 Apr 2019 12:49:27 +0900</pubDate>

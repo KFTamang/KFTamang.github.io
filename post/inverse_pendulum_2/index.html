@@ -46,9 +46,9 @@ ga('send', 'pageview');
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>進めているプロジェクト-KFTamang Blog</title>
+    <title>モータドライバのPWM制御のテスト-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/indeces/">
+    <link rel="canonical" href="/post/inverse_pendulum_2/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -168,18 +168,22 @@ ga('send', 'pageview');
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/%E5%80%92%E7%AB%8B%E6%8C%AF%E5%AD%90" title="倒立振子">
+                            倒立振子
+                        </a>
+                        
                     </div>
-                    <h1>進めているプロジェクト</h1>
+                    <h1>モータドライバのPWM制御のテスト</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
 			
-		            KFTamang Blog
+			    KFTamang
 			 
 			on 
-			Sunday, April 7, 2019
+			Tuesday, April 23, 2019
                         
-                            <span id="/post/indeces/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/inverse_pendulum_2/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -339,25 +343,95 @@ $(function() {
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#現在進めているプロジェクト">現在進めているプロジェクト</a></li>
+<li><a href="#これまで">これまで</a></li>
+<li><a href="#pwm方式">PWM方式</a></li>
+<li><a href="#実験系">実験系</a></li>
+<li><a href="#テスト用のarduinoスケッチ">テスト用のArduinoスケッチ</a></li>
+<li><a href="#結果">結果</a></li>
+<li><a href="#次回予告">次回予告</a></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="現在進めているプロジェクト">現在進めているプロジェクト</h1>
+<h1 id="これまで">これまで</h1>
 
-<p>今現在個人で実現したいと思っているプロジェクトを列挙します。
-放置気味になっているものもあるので、ここに挙げることでモチベーションにしていきたいです。</p>
+<p><a href="https://kftamang.github.io/post/inverse_pendulum_1/">前回の記事</a>でモータドライバIC DRV8835の動作テストを行い、
+無事にDCモータ(FA-130)が駆動できることを確認しました。
+しかしこのままではモータの動作は順方向逆方向に最大出力の運転しかできません。
+倒立振子を製作するには、0%から100%の間で出力を連続的に変化させてモータを駆動する必要があります。</p>
 
-<ul>
-<li><a href="https://kftamang.github.io/tags/環境モニタ/">ラズパイを用いた部屋の環境モニタ</a></li>
-<li>すだれコリメータ(Rotation Modulation Collimator, RMC)シミュレータ
-( <a href="https://github.com/KFTamang/RMCsimulator">githubレポジトリ</a> )</li>
-<li><a href="https://kftamang.github.io/tags/倒立振子/">Arduinoを用いた倒立振子</a></li>
-<li>音波干渉計</li>
-<li>マイクアンプ</li>
-</ul>
+<p>今回はPWM方式を用いてモータの出力を変化させるテストをしました。</p>
+
+<h1 id="pwm方式">PWM方式</h1>
+
+<p>PWMとはPulse Width Modulationの略で、High/Lowの2値しかとらない信号線一本で連続的な量を送る変調方式の一種です。
+周期的なパルスを送信する際に、パルスのDuty比(Highである時間とLowである時間の比)によって連続量を表現します。
+受け手の時間応答よりも十分早い周波数でパルスを送ることで、実効的には時間平均が取られた値を送ることができます。
+今回使用したArduino nanoではPWMの周波数は約490Hzであり、モータの応答に対して十分早いため回転スピードを連続的に変化させることができます。</p>
+
+<h1 id="実験系">実験系</h1>
+
+<p>PWM信号を送るため、Arduino nanoを使用しました。
+ArduinoはPWM信号を送るためのanalogWrite()関数が用意されており、
+簡単に特定のピンから約490HzのPWM信号を出力できます。（一部のピンでは倍の周波数で出る。）
+またDRV8835をPHASE/ENABLEモードで動作させるにあたり、順転逆転の制御のためのPHASE信号も必要となります。</p>
+
+<p>Arduino nanoの3.3V,GND,PIN9,PIN8をそれぞれDRV8835のVCC,GND,AENABLE,APHASEにつなぎました。
+PHASE/ENABLEモードで動作させるためDRV8835のMODEピンは3.3Vに直結します。</p>
+
+<p>DRV8835のVM,GND,AOUT1/AOUT2を電池、モータに繋いで準備完了です。</p>
+
+<h1 id="テスト用のarduinoスケッチ">テスト用のArduinoスケッチ</h1>
+
+<p>以下にテストに使用したスケッチを置いておきます。
+出力を0%からほぼ100%に上げ、また0%に戻すのを順転方向と逆転方向について交互に繰り返すだけです。</p>
+
+<pre><code class="language-cpp:PWM_test">int pwm_out = 9;
+int phase = 8;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(pwm_out, OUTPUT);
+  pinMode(phase, OUTPUT);
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  digitalWrite(phase, HIGH);
+  for (int i = 0; i &lt; 25; ++i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+  for (int i = 25; i &gt; 0; --i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+  digitalWrite(phase, LOW);
+  for (int i = 0; i &lt; 25; ++i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+  for (int i = 25; i &gt; 0; --i) {
+    analogWrite(pwm_out, i * 10);
+    delay(200);
+  }
+}
+
+</code></pre>
+
+<h1 id="結果">結果</h1>
+
+<p>意図したとおりにモータの出力が変化してくれます。
+車輪に目印を貼って回転速度がわかる様にすればよかったですね。</p>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">PWMでのモーター制御 <a href="https://t.co/Poghg9aePv">pic.twitter.com/Poghg9aePv</a></p>&mdash; 宇宙のタマン族@NT金沢6/29,30 (@KFTamang) <a href="https://twitter.com/KFTamang/status/1120312074247081985?ref_src=twsrc%5Etfw">April 22, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<h1 id="次回予告">次回予告</h1>
+
+<p>次はいよいよ傾きセンサと組み合わせていきたいと思います。</p>
 
 
                 
@@ -366,15 +440,10 @@ $(function() {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/test/" data-toggle="tooltip" data-placement="top" title="ブログ始めました。">&larr;
+                        <a href="/post/inverse_pendulum_1/" data-toggle="tooltip" data-placement="top" title="ギアボックスとモータ駆動系の製作">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/environment_monitor/" data-toggle="tooltip" data-placement="top" title="環境モニタの製作">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
