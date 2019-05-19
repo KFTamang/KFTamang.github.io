@@ -46,9 +46,9 @@ ga('send', 'pageview');
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>モータドライバのPWM制御のテスト-KFTamang Blog</title>
+    <title>inverse_pendulum_3-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/inverse_pendulum_2/">
+    <link rel="canonical" href="/post/inverse_pendulum_3/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@ ga('send', 'pageview');
                         </a>
                         
                     </div>
-                    <h1>モータドライバのPWM制御のテスト</h1>
+                    <h1>inverse_pendulum_3</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -181,9 +181,9 @@ ga('send', 'pageview');
 			    KFTamang
 			 
 			on 
-			Tuesday, April 23, 2019
+			Saturday, May 4, 2019
                         
-                            <span id="/post/inverse_pendulum_2/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/inverse_pendulum_3/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -343,95 +343,164 @@ $(function() {
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#これまで">これまで</a></li>
-<li><a href="#pwm方式">PWM方式</a></li>
-<li><a href="#実験系">実験系</a></li>
-<li><a href="#テスト用のarduinoスケッチ">テスト用のArduinoスケッチ</a></li>
-<li><a href="#結果">結果</a></li>
-<li><a href="#次回予告">次回予告</a></li>
+<li><a href="#前回までのまとめ">前回までのまとめ</a></li>
+<li><a href="#姿勢の取得">姿勢の取得</a>
+<ul>
+<li><a href="#角度の推定方法">角度の推定方法</a></li>
+</ul></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="これまで">これまで</h1>
+<h1 id="前回までのまとめ">前回までのまとめ</h1>
 
-<p><a href="https://kftamang.github.io/post/inverse_pendulum_1/">前回の記事</a>でモータドライバIC DRV8835の動作テストを行い、
-無事にDCモータ(FA-130)が駆動できることを確認しました。
-しかしこのままではモータの動作は順方向逆方向に最大出力の運転しかできません。
-倒立振子を製作するには、0%から100%の間で出力を連続的に変化させてモータを駆動する必要があります。</p>
+<p>前回は倒立振子の完成に向けて駆動系（モータ、ギアボックス）の製作を行なった。
+そのとき次回は全体のまとめについて記事にすると言ったが、
+角度の推定だけでひとつのエントリにした方が良さそうなので分割することにした。</p>
 
-<p>今回はPWM方式を用いてモータの出力を変化させるテストをしました。</p>
+<h1 id="姿勢の取得">姿勢の取得</h1>
 
-<h1 id="pwm方式">PWM方式</h1>
+<p>倒立振子が自立するには垂直軸に対する自分の角度を知る必要がある。
+このためにジャイロセンサ・加速度センサ複合モジュールである
+<a href="https://www.amazon.co.jp/gp/product/B00K67X810/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&amp;psc=1">GY-521 MPU-60503軸ジャイロ+3軸加速度センサ</a>
+を用いた。
+GY-521はジャイロ・加速度センサチップであるMPU-6050にパスコン、3端子レギュレータなどを合わせて2.54mmピッチに変換したものである。
+ArduinoとはI2C方式で通信する。</p>
 
-<p>PWMとはPulse Width Modulationの略で、High/Lowの2値しかとらない信号線一本で連続的な量を送る変調方式の一種です。
-周期的なパルスを送信する際に、パルスのDuty比(Highである時間とLowである時間の比)によって連続量を表現します。
-受け手の時間応答よりも十分早い周波数でパルスを送ることで、実効的には時間平均が取られた値を送ることができます。
-今回使用したArduino nanoではPWMの周波数は約490Hzであり、モータの応答に対して十分早いため回転スピードを連続的に変化させることができます。</p>
+<p>ジャイロセンサにより3軸の角速度、加速度センサにより同じく3軸の加速度が取得できる。
+ジャイロセンサのみ、または加速度センサのみで現在の角度を求めることも可能ではあるが、
+後述する通り両者を組み合わせることで精度を向上させることができる。</p>
 
-<h1 id="実験系">実験系</h1>
+<h2 id="角度の推定方法">角度の推定方法</h2>
 
-<p>PWM信号を送るため、Arduino nanoを使用しました。
-ArduinoはPWM信号を送るためのanalogWrite()関数が用意されており、
-簡単に特定のピンから約490HzのPWM信号を出力できます。（一部のピンでは倍の周波数で出る。）
-またDRV8835をPHASE/ENABLEモードで動作させるにあたり、順転逆転の制御のためのPHASE信号も必要となります。</p>
+<p>ジャイロセンサは角速度を測定するため、測定値を積分することで始点からの角度変化を求めることができる。
+しかしこの方法では測定値を足しつづけるため、誤差が蓄積し推定値が真の値からどんどんずれてしまう。</p>
 
-<p>Arduino nanoの3.3V,GND,PIN9,PIN8をそれぞれDRV8835のVCC,GND,AENABLE,APHASEにつなぎました。
-PHASE/ENABLEモードで動作させるためDRV8835のMODEピンは3.3Vに直結します。</p>
+<p>加速度センサは重力加速度の方向がわかるため、垂直軸からの離角が直接計算できる。
+しかし加速度センサはノイズが大きく、瞬間的には角度の計算値は大きく揺れる。
+また水平方向に加速運動をしている場合、慣性力と重力加速度の合力が測定されるため計算値に誤差が乗る。</p>
 
-<p>DRV8835のVM,GND,AOUT1/AOUT2を電池、モータに繋いで準備完了です。</p>
+<p>そこで今回は相補フィルターを用いてジャイロセンサと加速度センサの値から角度を推定した。</p>
 
-<h1 id="テスト用のarduinoスケッチ">テスト用のArduinoスケッチ</h1>
+<p>相補フィルタについては各自参照してもらいたいが、長期トレンドとしては加速度センサが、短期トレンドとしてはジャイロセンサが大きな影響を与えるようになっている。</p>
 
-<p>以下にテストに使用したスケッチを置いておきます。
-出力を0%からほぼ100%に上げ、また0%に戻すのを順転方向と逆転方向について交互に繰り返すだけです。</p>
+<p>ジャイロセンサ・加速度センサのテストに用いたコードが以下である。</p>
 
-<pre><code class="language-cpp:PWM_test">int pwm_out = 9;
-int phase = 8;
-void setup() {
-  // put your setup code here, to run once:
-  pinMode(pwm_out, OUTPUT);
-  pinMode(phase, OUTPUT);
+<pre><code class="language-gyro_test">// MPU-6050 Short Example Sketch
+// By Arduino User JohnChi
+// August 17, 2014
+// Public Domain
+#include&lt;Wire.h&gt;
+
+#define dt (0.030)
+#define K (0.95)
+
+
+
+float angle = 0;
+float angle_raw = 0;
+float angle_com = 0;
+float angle_gyro = 0;
+float gyro_offset = 0.0;
+float angle_offset = 0.0;
+
+int count = 0;
+
+const int MPU_addr=0x68;  // I2C address of the MPU-6050
+int16_t AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
+void setup(){
+  Wire.begin();
+  Wire.beginTransmission(MPU_addr);
+  Wire.write(0x6B);  // PWR_MGMT_1 register
+  Wire.write(0);     // set to zero (wakes up the MPU-6050)
+  Wire.endTransmission(true);
+  Serial.begin(115200);
+
+  // canceling gyro offset
+  for(int i=0;i&lt;100;++i){
+    Wire.beginTransmission(MPU_addr);
+    Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)  
+    Wire.endTransmission(false);
+    Wire.requestFrom(MPU_addr,14,true);  // request a total of 14 registers
+    AcX=Wire.read()&lt;&lt;8|Wire.read();  // 0x3B (ACCEL_XOUT_H) &amp; 0x3C (ACCEL_XOUT_L)     
+    AcY=Wire.read()&lt;&lt;8|Wire.read();  // 0x3D (ACCEL_YOUT_H) &amp; 0x3E (ACCEL_YOUT_L)
+    AcZ=Wire.read()&lt;&lt;8|Wire.read();  // 0x3F (ACCEL_ZOUT_H) &amp; 0x40 (ACCEL_ZOUT_L)
+    Tmp=Wire.read()&lt;&lt;8|Wire.read();  // 0x41 (TEMP_OUT_H) &amp; 0x42 (TEMP_OUT_L)
+    GyX=Wire.read()&lt;&lt;8|Wire.read();  // 0x43 (GYRO_XOUT_H) &amp; 0x44 (GYRO_XOUT_L)
+    GyY=Wire.read()&lt;&lt;8|Wire.read();  // 0x45 (GYRO_YOUT_H) &amp; 0x46 (GYRO_YOUT_L)
+    GyZ=Wire.read()&lt;&lt;8|Wire.read();  // 0x47 (GYRO_ZOUT_H) &amp; 0x48 (GYRO_ZOUT_L)
+    gyro_offset += GyZ;
+    angle_offset += atan2(AcX,AcY)*180.0/3.14 + 90.0;
+  
+  }
+  gyro_offset /= 100.0;
+  angle_offset /= 100.0;
+  
+  Serial.print(gyro_offset);
+  Serial.print(&quot;\n&quot;);
   
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(phase, HIGH);
-  for (int i = 0; i &lt; 25; ++i) {
-    analogWrite(pwm_out, i * 10);
-    delay(200);
-  }
-  for (int i = 25; i &gt; 0; --i) {
-    analogWrite(pwm_out, i * 10);
-    delay(200);
-  }
-  digitalWrite(phase, LOW);
-  for (int i = 0; i &lt; 25; ++i) {
-    analogWrite(pwm_out, i * 10);
-    delay(200);
-  }
-  for (int i = 25; i &gt; 0; --i) {
-    analogWrite(pwm_out, i * 10);
-    delay(200);
-  }
+void loop(){
+  ++count;  
+  //angle = get_angle();
+
+  Wire.beginTransmission(MPU_addr);
+  Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
+  Wire.endTransmission(false);
+  Wire.requestFrom(MPU_addr,14,true);  // request a total of 14 registers
+  AcX=Wire.read()&lt;&lt;8|Wire.read();  // 0x3B (ACCEL_XOUT_H) &amp; 0x3C (ACCEL_XOUT_L)     
+  AcY=Wire.read()&lt;&lt;8|Wire.read();  // 0x3D (ACCEL_YOUT_H) &amp; 0x3E (ACCEL_YOUT_L)
+  AcZ=Wire.read()&lt;&lt;8|Wire.read();  // 0x3F (ACCEL_ZOUT_H) &amp; 0x40 (ACCEL_ZOUT_L)
+  Tmp=Wire.read()&lt;&lt;8|Wire.read();  // 0x41 (TEMP_OUT_H) &amp; 0x42 (TEMP_OUT_L)
+  GyX=Wire.read()&lt;&lt;8|Wire.read();  // 0x43 (GYRO_XOUT_H) &amp; 0x44 (GYRO_XOUT_L)
+  GyY=Wire.read()&lt;&lt;8|Wire.read();  // 0x45 (GYRO_YOUT_H) &amp; 0x46 (GYRO_YOUT_L)
+  GyZ=Wire.read()&lt;&lt;8|Wire.read();  // 0x47 (GYRO_ZOUT_H) &amp; 0x48 (GYRO_ZOUT_L)
+
+
+  angle = atan2(AcX,AcY)*180.0/3.14 + 90.0 - angle_offset;
+
+  float d_gyro = (GyZ-gyro_offset)*dt/32768*250; 
+  angle_gyro += d_gyro; // 32768:max int, 250 deg/sec max rate
+  
+  
+// complimentary filter 
+  angle_com = K*(angle_com + d_gyro) + (1-K)*angle;
+
+
+  Serial.print(angle);
+  Serial.print(&quot; &quot;);
+  Serial.print(angle_com);
+  Serial.print(&quot;\n&quot;);
+
+  delay(100);
 }
 
 </code></pre>
 
-<h1 id="結果">結果</h1>
+<p>起動時に実行されるsetup()ではジャイロセンサのオフセットを除去するため、
+データを100回取って平均している。
+このとき機体は静止していることを前提としているためなるべく動かさないようにする。
+以降はこの平均をジャイロセンサの値から引いて使用している。
+また、同時に加速度センサも100回の平均を取り、これを垂直の値として使用している。
+これは制御の角度原点となるため、ここが垂直になっていないと倒立振子が横に動いていってしまう。</p>
 
-<p>意図したとおりにモータの出力が変化してくれます。
-車輪に目印を貼って回転速度がわかる様にすればよかったですね。</p>
+<p>角度計算のコードのなかでジャイロセンサからの角度の値を積分するのにデータ取得間隔としてdtを掛けている。
+このdtはdelay()の値やシリアル通信、そのほかの処理にかかる時間によって変化する。
+そのため、処理ごとにデータ取得間隔を実測してdtの値を決定しなければいけない。</p>
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">PWMでのモーター制御 <a href="https://t.co/Poghg9aePv">pic.twitter.com/Poghg9aePv</a></p>&mdash; 宇宙のタマン族@NT金沢6/29,30 (@KFTamang) <a href="https://twitter.com/KFTamang/status/1120312074247081985?ref_src=twsrc%5Etfw">April 22, 2019</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>dtの値が間違っていると、ジャイロセンサからの角度の推定値が大きすぎ、または小さすぎてしまうため、機体を回転させると正しい値がでなくなる。（数秒待つと加速度センサの寄与により正しい値になっていく。）</p>
 
+<p>最後に角度を0度から90度起こし、また0度に戻したときのジャイロセンサ、加速度センサ、相補フィルタ出力の3つを比較したグラフを載せる。</p>
 
-<h1 id="次回予告">次回予告</h1>
+<p><img src="/images/ 2019-05-19 at 20.50.07.png" alt="angle_plot" />
+青線が加速度センサ、赤線がジャイロセンサ、緑線が相補フィルタ出力となっている。
+青の加速度センサはノイズが多く、短期的にはあまり当てにならないことがわかる。
+拡大すると見えるが赤のジャイロセンサは0度がずれていっている。（オフセット除去によりドリフトはそれなりに抑えられている。）
+<img src="/images/ 2019-05-19 at 20.56.09.png" alt="angle_plot" /></p>
 
-<p>次はいよいよ傾きセンサと組み合わせていきたいと思います。</p>
+<p>緑の相補フィルタは青のノイズを抑えながら赤に追従し、かつ原点のドリフトを抑えられている。</p>
 
 
                 
@@ -440,15 +509,10 @@ void loop() {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/inverse_pendulum_1/" data-toggle="tooltip" data-placement="top" title="ギアボックスとモータ駆動系の製作">&larr;
+                        <a href="/post/inverse_pendulum_2/" data-toggle="tooltip" data-placement="top" title="モータドライバのPWM制御のテスト">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/inverse_pendulum_3/" data-toggle="tooltip" data-placement="top" title="inverse_pendulum_3">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
