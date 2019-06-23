@@ -1,4 +1,4 @@
-html {
+body {
  font-family:
  -apple-system, /* OS X, iOS San Francisco */
  BlinkMacSystemFont, /* OS X, iOS Chrome San Francisco */
