@@ -46,15 +46,11 @@
 多少は立てるので、PID制御の係数が大きく外れた値を使っているということがないと思います。
 今はジャイロセンサの値取得にかかる時間が一定でないことが原因でないかと疑っています。&lt;/p&gt;
 
-&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;ja&#34; dir=&#34;ltr&#34;&gt;立った！ &lt;a href=&#34;https://t.co/sE8hlQF6IF&#34;&gt;pic.twitter.com/sE8hlQF6IF&lt;/a&gt;&lt;/p&gt;&amp;mdash; 宇宙のタマン族 (@KFTamang) &lt;a href=&#34;https://twitter.com/KFTamang/status/1144839553649217536?ref_src=twsrc%5Etfw&#34;&gt;June 29, 2019&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;また、ジャイロ・加速度センサからの角度をリアルタイムにグラフ表示するデモも行いました
 （画質が足りなくて線が見にくいです）。&lt;/p&gt;
 
-&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;ja&#34; dir=&#34;ltr&#34;&gt;&lt;a href=&#34;https://twitter.com/hashtag/NT%E9%87%91%E6%B2%A2?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#NT金沢&lt;/a&gt; のE8-1ブースにて倒立振子の展示、加速度センサのデモを行ってます（遅い） &lt;a href=&#34;https://t.co/DBF0Q2EqI0&#34;&gt;pic.twitter.com/DBF0Q2EqI0&lt;/a&gt;&lt;/p&gt;&amp;mdash; 宇宙のタマン族 (@KFTamang) &lt;a href=&#34;https://twitter.com/KFTamang/status/1144857770019004416?ref_src=twsrc%5Etfw&#34;&gt;June 29, 2019&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;モータの出力も安定度に影響するようなので、ステッピングモータの導入も含めて考えています。&lt;/p&gt;
@@ -309,8 +305,6 @@ void loop() {
 &lt;p&gt;意図したとおりにモータの出力が変化してくれます。
 車輪に目印を貼って回転速度がわかる様にすればよかったですね。&lt;/p&gt;
 
-&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;ja&#34; dir=&#34;ltr&#34;&gt;PWMでのモーター制御 &lt;a href=&#34;https://t.co/Poghg9aePv&#34;&gt;pic.twitter.com/Poghg9aePv&lt;/a&gt;&lt;/p&gt;&amp;mdash; 宇宙のタマン族 (@KFTamang) &lt;a href=&#34;https://twitter.com/KFTamang/status/1120312074247081985?ref_src=twsrc%5Etfw&#34;&gt;April 22, 2019&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 
 
 &lt;h1 id=&#34;次回予告&#34;&gt;次回予告&lt;/h1&gt;
@@ -362,8 +356,6 @@ void loop() {
 &lt;p&gt;説明書に沿って組み立てます。ギア比は中速(&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;58&lt;/sub&gt;.2減速)を選びました。
 モータを3Vに接続してのテストがこちら。&lt;/p&gt;
 
-&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;ja&#34; dir=&#34;ltr&#34;&gt;タミヤ始め &lt;a href=&#34;https://t.co/LkaVeCp9Dz&#34;&gt;pic.twitter.com/LkaVeCp9Dz&lt;/a&gt;&lt;/p&gt;&amp;mdash; 宇宙のタマン族 (@KFTamang) &lt;a href=&#34;https://twitter.com/KFTamang/status/1119834419919855616?ref_src=twsrc%5Etfw&#34;&gt;April 21, 2019&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 
 
 &lt;h1 id=&#34;ドライバicによるモータ制御&#34;&gt;ドライバICによるモータ制御&lt;/h1&gt;
