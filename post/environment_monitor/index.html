@@ -2,19 +2,6 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-
-	
-	
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-83537418-2', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
-
-	
-
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,14 +10,14 @@ ga('send', 'pageview');
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://kftamang.github.io//images/header.jpg">
-    <meta property="twitter:image" content="https://kftamang.github.io//images/header.jpg" />
+    <meta property="og:image" content="https://KFTamang.github.io//images/header.jpg">
+    <meta property="twitter:image" content="https://KFTamang.github.io//images/header.jpg" />
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="環境モニタの製作" />
+    <meta property="og:title" content="環境モニタの製作" />
+    <meta property="twitter:title" content="環境モニタの製作" />
     
 
     
@@ -43,6 +30,7 @@ ga('send', 'pageview');
     <meta property="twitter:card" content="summary" />
     
     
+
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
@@ -64,7 +52,7 @@ ga('send', 'pageview');
     
     <link rel="stylesheet" href="/css/zanshang.css">
 
-	
+    
     <link rel="stylesheet" href="/css/furukawa_custom.css">
 
     
@@ -109,7 +97,7 @@ ga('send', 'pageview');
                     </li>
                     
                     <li>
-                        <a href="/categories/tech">Tech</a>
+                        <a href="/categories/tech">tech</a>
                     </li>
                     
                     
@@ -344,19 +332,9 @@ $(function() {
                 <header>
                     <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents">
-<ul>
-<li><a href="#背景">背景</a></li>
-<li><a href="#機器の構成">機器の構成</a></li>
-<li><a href="#動作">動作</a></li>
-<li><a href="#参考文献">参考文献</a></li>
-</ul>
-</nav>
+                <nav id="TableOfContents"></nav>
                 
-                
-
-<h1 id="背景">背景</h1>
-
+                <h1 id="背景">背景</h1>
 <p>これから夏がやってくるとクーラーのお世話になる時間がながくなります。
 出かけている間にクーラーを付けっ放しにするのは（おそらく）不経済であるため、
 住人が全員外出してるのにクーラーがオンの状態になっているときはアラートを出して、
@@ -364,16 +342,11 @@ $(function() {
 また、冬場には部屋を閉め切って暖房を使うため、二酸化炭素の濃度が上昇し
 生産性や健康に害を及ぼす可能性があります。
 そのほかの空気中のガスをモニターしておくことで換気などのアラートを出すことができます。</p>
-
 <p>また、気温や湿度のログを取っておくことで、電気節約や結露防止対策などの有効性検討の材料とすることができます。</p>
-
 <p>以上の点から共有スペースの気温・湿度、有害物質気体の濃度などを計測的に測定し、
 ログを残すとともにエアコンや換気扇を操作できるようにします。</p>
-
 <h1 id="機器の構成">機器の構成</h1>
-
 <p>使用した部品は以下の表に示しています。</p>
-
 <ul>
 <li>ラズベリーパイ3 モデルB+</li>
 <li>温湿度センサ DHT11</li>
@@ -382,27 +355,19 @@ $(function() {
 <li>赤外線LED *</li>
 <li>赤外線受信モジュール *</li>
 </ul>
-
 <p>(ただし*印は未実装)</p>
-
 <p>機器の構成は絵のとおり、ラズパイのGPIOにDHT11を接続し気温・湿度を取得します。
 接続していませんが、温度・気圧センサであるBMP280はI2C通信でラズパイと接続します。
 気温・湿度・気圧は10分ごとに計測し、IFTTT経由でGoogle Driveのスプレッドシートに記録します。
 またラズパイ上ではslackとの通信を行うslackbotを走らせ、
 専用チャンネルに「温度」を含む文章の投稿に反応して温湿度を投稿するようにしています。</p>
-
 <p>まだ未実装ですが、赤外線送信用のLEDと赤外線受信モジュールをGPIOに接続し、
 IRLRというPythonライブラリを利用して家電（今のところエアコン）を操作できるようにする予定です。</p>
-
 <h1 id="動作">動作</h1>
-
 <p>スクリーンショットのようにslackの投稿に反応して部屋の温度・湿度を返してくれます。
-<img src="/images/environmental_sonsor.png" alt="動作" /></p>
-
+<img src="/images/environmental_sonsor.png" alt="動作"></p>
 <h1 id="参考文献">参考文献</h1>
-
 <p><a href="https://qiita.com/takjg/items/e6b8af53421be54b62c9">格安スマートリモコンの作り方 - Qiita</a></p>
-
 <p><a href="https://vintagechips.wordpress.com/2013/10/05/%E8%B5%A4%E5%A4%96%E7%B7%9Aled%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%E5%9B%9E%E8%B7%AF%E3%81%AE%E6%B1%BA%E5%AE%9A%E7%89%88/">赤外線LEDドライブ回路の決定版 - 電脳伝説</a></p>
 
 
@@ -428,8 +393,8 @@ IRLRというPythonライブラリを利用して家電（今のところエア�
 <div id="disqus-comment"></div>
 
 
-            </div>
 
+            </div>
             
             <div class="
                 col-lg-8 col-lg-offset-2
@@ -455,8 +420,20 @@ IRLRというPythonライブラリを利用して家電（今のところエア�
                         
                         
                         
+                        <a href="/tags/%E4%BC%91%E5%AD%A6" title="休学">
+                            休学
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%E5%80%92%E7%AB%8B%E6%8C%AF%E5%AD%90" title="倒立振子">
                             倒立振子
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%A4%A7%E5%AD%A6%E9%99%A2" title="大学院">
+                            大学院
                         </a>
                         
                         
@@ -477,6 +454,126 @@ IRLRというPythonライブラリを利用して家電（今のところエア�
     </div>
 </article>
 
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="KFTamang Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:sub.sonic.detonation@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/KFTamang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; KFTamang Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83537418-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

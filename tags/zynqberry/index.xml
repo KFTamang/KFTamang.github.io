@@ -1,42 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>KFTamang Blog</title>
-    <link>https://KFTamang.github.io/tags/zynqberry/index.xml</link>
-    <description>Recent content on KFTamang Blog</description>
+    <title>Zynqberry on KFTamang Blog</title>
+    <link>https://KFTamang.github.io/tags/zynqberry/</link>
+    <description>Recent content in Zynqberry on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <atom:link href="https://KFTamang.github.io/tags/zynqberry/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 May 2019 01:14:50 +0900</lastBuildDate>
+    
+	<atom:link href="https://KFTamang.github.io/tags/zynqberry/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Zynqberryをいじる</title>
-      <link>https://kftamang.github.io/post/zynqberry_1/</link>
+      <link>https://KFTamang.github.io/post/zynqberry_1/</link>
       <pubDate>Thu, 23 May 2019 01:14:50 +0900</pubDate>
       
-      <guid>https://kftamang.github.io/post/zynqberry_1/</guid>
-      <description>
-
-&lt;h1 id=&#34;zynqberryとは&#34;&gt;Zynqberryとは&lt;/h1&gt;
-
-&lt;p&gt;ZynqberryとはXilinx社が出しているSoC(System on Chip)であるZynqを搭載したボードコンピュータであり、ドイツのTranz社が販売している。
-特徴としてはRasberry Pi Model 2 Bと同じ形状をしている。
-ZynqはFGPAであるPL部とArmプロセッサであるPS部が一つのチップに乗っており、
-FPGAとCPUのいいとこ取りで処理ができる。
-Zynqの評価基板といえばZyboが最も有名であるが、Zyboより安くてなんとなくZynqberryを買ってしまった。
-Tranz社の日本代理店である特殊電子株式会社以外にあんまり日本語のドキュメントが見つからないため、勉強ついでに参考となる情報をまとめていければと思う。&lt;/p&gt;
-
-&lt;p&gt;とりあえず参考文献をまとめていく。&lt;/p&gt;
-
-&lt;h1 id=&#34;参考文献&#34;&gt;参考文献&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Trenz社のRefference Design &lt;a href=&#34;https://wiki.trenz-electronic.de/display/PD/TE0726+Reference+Designs&#34;&gt;TE0726 Reference Designs&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Trenz社のTechnical Refference Manual &lt;a href=&#34;https://wiki.trenz-electronic.de/display/PD/TE0726+TRM&#34;&gt;TE0726 TRM&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Digikeyのチュートリアル &lt;a href=&#34;https://www.digikey.com/eewiki/display/Motley/Getting+Started+with+the+ZynqBerry&#34;&gt;Getting Started with the ZynqBerry&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <guid>https://KFTamang.github.io/post/zynqberry_1/</guid>
+      <description>Zynqberryとは ZynqberryとはXilinx社が出しているSoC(System on Chip)であるZynqを搭載したボードコンピュ</description>
     </item>
     
   </channel>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>大学院 on KFTamang Blog</title>
+    <link>https://KFTamang.github.io/tags/%E5%A4%A7%E5%AD%A6%E9%99%A2/</link>
+    <description>Recent content in 大学院 on KFTamang Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 29 Feb 2020 03:14:35 +0900</lastBuildDate>
+    
+	<atom:link href="https://KFTamang.github.io/tags/%E5%A4%A7%E5%AD%A6%E9%99%A2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>大学院を休学します(事務手続き編)</title>
+      <link>https://KFTamang.github.io/post/univ2/</link>
+      <pubDate>Sat, 29 Feb 2020 03:14:35 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/post/univ2/</guid>
+      <description>休学の報告 タイトルの通りですが、2020年3月をもちまして東京大学大学院 理学系研究科 物理学専攻の博士課程を休学することにしました。 その経緯と</description>
+    </item>
+    
+    <item>
+      <title>大学院を休学します(理由編)</title>
+      <link>https://KFTamang.github.io/post/univ1/</link>
+      <pubDate>Sat, 29 Feb 2020 03:14:35 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/post/univ1/</guid>
+      <description>休学の報告 タイトルの通りですが、2020年3月をもちまして東京大学大学院 理学系研究科 物理学専攻の博士課程を休学することにしました。 休学に必要</description>
+    </item>
+    
+  </channel>
+</rss>

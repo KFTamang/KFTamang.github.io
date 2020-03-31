@@ -2,19 +2,6 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-
-	
-	
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-83537418-2', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
-
-	
-
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,14 +10,14 @@ ga('send', 'pageview');
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://kftamang.github.io//images/header.jpg">
-    <meta property="twitter:image" content="https://kftamang.github.io//images/header.jpg" />
+    <meta property="og:image" content="https://KFTamang.github.io//images/header.jpg">
+    <meta property="twitter:image" content="https://KFTamang.github.io//images/header.jpg" />
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="ギアボックスとモータ駆動系の製作" />
+    <meta property="og:title" content="ギアボックスとモータ駆動系の製作" />
+    <meta property="twitter:title" content="ギアボックスとモータ駆動系の製作" />
     
 
     
@@ -43,6 +30,7 @@ ga('send', 'pageview');
     <meta property="twitter:card" content="summary" />
     
     
+
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
@@ -64,7 +52,7 @@ ga('send', 'pageview');
     
     <link rel="stylesheet" href="/css/zanshang.css">
 
-	
+    
     <link rel="stylesheet" href="/css/furukawa_custom.css">
 
     
@@ -109,7 +97,7 @@ ga('send', 'pageview');
                     </li>
                     
                     <li>
-                        <a href="/categories/tech">Tech</a>
+                        <a href="/categories/tech">tech</a>
                     </li>
                     
                     
@@ -344,56 +332,32 @@ $(function() {
                 <header>
                     <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents">
-<ul>
-<li><a href="#倒立振子製作にむけて">倒立振子製作にむけて</a></li>
-<li><a href="#今回の内容">今回の内容</a></li>
-<li><a href="#ギアボックス-モータの組み立てと動作確認">ギアボックス、モータの組み立てと動作確認</a></li>
-<li><a href="#ドライバicによるモータ制御">ドライバICによるモータ制御</a></li>
-</ul>
-</nav>
+                <nav id="TableOfContents"></nav>
                 
-                
-
-<h1 id="倒立振子製作にむけて">倒立振子製作にむけて</h1>
-
+                <h1 id="倒立振子製作にむけて">倒立振子製作にむけて</h1>
 <p>倒立振子（とうりつしんし）とは、棒の先に重りをつけた振子を逆さに立てた系のことです。
 当然そのままでは倒れてしまいますが、制御を加えることで逆立ちを維持させることができます。
 フィードバック制御の課題としてよく取り上げられる題材であり、わたしはArduinoの練習ということで製作してみたいと思います。</p>
-
 <h1 id="今回の内容">今回の内容</h1>
-
 <p>倒立振子には制御を行う演算系と、実際の制御を行う機械系が必要になります。
 今回は機械系としてDCモータでタイヤを駆動する1次元系にしました。</p>
-
 <p>以下に部品のリストを示します。</p>
-
 <ul>
 <li><a href="https://www.tamiya.com/japan/products/70093/index.html">3速クランクギアボックスセット - タミヤ</a></li>
 <li><a href="https://www.tamiya.com/japan/products/94380/index.html">DCモータ FA-130 - タミヤ</a></li>
 <li><a href="https://www.tamiya.com/japan/products/70096/index.html">オフロードタイヤセット - タミヤ</a></li>
 <li><a href="http://akizukidenshi.com/catalog/g/gK-09848/">ＤＲＶ８８３５使用ステッピング＆ＤＣモータドライバモジュール - 秋月電子</a></li>
 </ul>
-
 <p>モータは親の顔よりよく見たミニ４駆用DCモータです。これはマブチモータ互換品であり、マブチ製品の型番はFA-130RAというようです。
 性能表は<a href="https://product.mabuchi-motor.co.jp/detail.html?id=9">ここ</a>にあります。</p>
-
-<p><img src="/images/ScreenShot2019-04-21at131244.png" alt="モータ性能表" /></p>
-
+<p><img src="/images/ScreenShot2019-04-21at131244.png" alt="モータ性能表"></p>
 <p>これを見ると、電圧は1.5-3.0Vのようです。ネット上でロボコンなどの記事を見ると過電圧をかけることも可能なようですが、
 定格に準拠したいと思います。</p>
-
 <p>今回はこのモータを秋月のドライバICキットで動かすところまでやりたいと思います。</p>
-
-<h1 id="ギアボックス-モータの組み立てと動作確認">ギアボックス、モータの組み立てと動作確認</h1>
-
-<p>説明書に沿って組み立てます。ギア比は中速(<sup>1</sup>&frasl;<sub>58</sub>.2減速)を選びました。
-モータを3Vに接続してのテストがこちら。</p>
-
-
-
+<h1 id="ギアボックスモータの組み立てと動作確認">ギアボックス、モータの組み立てと動作確認</h1>
+<p>説明書に沿って組み立てます。ギア比は中速(1/58.2減速)を選びました。
+モータを3Vに接続してのテストしました。</p>
 <h1 id="ドライバicによるモータ制御">ドライバICによるモータ制御</h1>
-
 <p>秋月のモータドライバICキットでモータをコントロールできるかテストします。
 今回購入したキットにはDRV8835が使用してあります。
 この<a href="http://akizukidenshi.com/download/ds/ti/drv8835.pdf">DRV8835のデータシート</a>を見ると、
@@ -401,28 +365,21 @@ $(function() {
 FA-130の性能表を見ると無負荷(NO LOAD)で0.20A、静止時(STALL)で2.20Aの電流が流れるとのことです。
 本番では偶然壁にぶつかってしまうこともあると思うので2chを並列に接続しますが、
 今のテストでは1chだけでいいでしょう。</p>
-
-<p><img src="/images/ScreenShot2019-04-21at144952.png" alt="DRV8835" /></p>
-
+<p><img src="/images/ScreenShot2019-04-21at144952.png" alt="DRV8835"></p>
 <p>ブレッドボードに動作テスト用の回路を組みます。
 DRV8835に電源を与えて入力の2つの入力のロジックレベルを変えてやると、
 表にしたがって回転方向が変化します。</p>
-
-<p><img src="/images/P_20190421_155506_vHDR_Auto.jpg" alt="ブレッドボードテスト" />
+<p><img src="/images/P_20190421_155506_vHDR_Auto.jpg" alt="ブレッドボードテスト">
 ブレッドボードでテストをしている様子。
 モバイルバッテリーから電圧を3.3Vへ落としてICへ供給している。反対側にはモータ駆動用の電池が繋がっている。</p>
-
 <p>入出力の対応には2種類のモードがあり、それぞれIN/INモードとPHASE/ENABLEモードと呼ばれています。
 IN/INモードではCoast(空転)が使えますが、ReverseのときにON/OFFがややこしくなります。
 その点、PHASE/ENABLEモードではCoastが使えない代わりに、ReverseでもON/OFFの操作がForwardと同じになります。</p>
-
 <p>倒立振子の運動を考えると、常に制御していないと倒れてしまうことからCoastは必要ない代わりに、
 運動は前進と後進が対称です。
 PWMで速度の調整を行いたいことから、動作モードはPHASE/ENABLEが適していることがわかりました。</p>
-
-<p><img src="/images/ScreenShot2019-04-21at154930.png" alt="ロジック表" />
+<p><img src="/images/ScreenShot2019-04-21at154930.png" alt="ロジック表">
 入力と出力の対応表。</p>
-
 <p>次回はArduinoを用いてPWMでの回転速度制御を行う予定です。</p>
 
 
@@ -448,8 +405,8 @@ PWMで速度の調整を行いたいことから、動作モードはPHASE/ENABL
 <div id="disqus-comment"></div>
 
 
-            </div>
 
+            </div>
             
             <div class="
                 col-lg-8 col-lg-offset-2
@@ -475,8 +432,20 @@ PWMで速度の調整を行いたいことから、動作モードはPHASE/ENABL
                         
                         
                         
+                        <a href="/tags/%E4%BC%91%E5%AD%A6" title="休学">
+                            休学
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%E5%80%92%E7%AB%8B%E6%8C%AF%E5%AD%90" title="倒立振子">
                             倒立振子
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%A4%A7%E5%AD%A6%E9%99%A2" title="大学院">
+                            大学院
                         </a>
                         
                         
@@ -497,6 +466,126 @@ PWMで速度の調整を行いたいことから、動作モードはPHASE/ENABL
     </div>
 </article>
 
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="KFTamang Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:sub.sonic.detonation@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/KFTamang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; KFTamang Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83537418-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

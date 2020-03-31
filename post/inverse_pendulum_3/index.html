@@ -2,19 +2,6 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-
-	
-	
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-83537418-2', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
-
-	
-
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,14 +10,14 @@ ga('send', 'pageview');
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="https://kftamang.github.io//images/header.jpg">
-    <meta property="twitter:image" content="https://kftamang.github.io//images/header.jpg" />
+    <meta property="og:image" content="https://KFTamang.github.io//images/header.jpg">
+    <meta property="twitter:image" content="https://KFTamang.github.io//images/header.jpg" />
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="[倒立振子] 角度の推定" />
+    <meta property="og:title" content="[倒立振子] 角度の推定" />
+    <meta property="twitter:title" content="[倒立振子] 角度の推定" />
     
 
     
@@ -43,6 +30,7 @@ ga('send', 'pageview');
     <meta property="twitter:card" content="summary" />
     
     
+
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
@@ -64,7 +52,7 @@ ga('send', 'pageview');
     
     <link rel="stylesheet" href="/css/zanshang.css">
 
-	
+    
     <link rel="stylesheet" href="/css/furukawa_custom.css">
 
     
@@ -109,7 +97,7 @@ ga('send', 'pageview');
                     </li>
                     
                     <li>
-                        <a href="/categories/tech">Tech</a>
+                        <a href="/categories/tech">tech</a>
                     </li>
                     
                     
@@ -345,53 +333,35 @@ $(function() {
                     <h2>TOC</h2>
                 </header>
                 <nav id="TableOfContents">
-<ul>
-<li><a href="#前回までのまとめ">前回までのまとめ</a></li>
-<li><a href="#姿勢の取得">姿勢の取得</a>
-<ul>
-<li><a href="#角度の推定方法">角度の推定方法</a></li>
-</ul></li>
-<li><a href="#実際のデータの確認">実際のデータの確認</a></li>
-</ul>
+  <ul>
+    <li><a href="#角度の推定方法">角度の推定方法</a></li>
+  </ul>
 </nav>
                 
-                
-
-<h1 id="前回までのまとめ">前回までのまとめ</h1>
-
+                <h1 id="前回までのまとめ">前回までのまとめ</h1>
 <p><a href="https://kftamang.github.io/post/inverse_pendulum_2">前回</a>は倒立振子の完成に向けてモータのPWM制御を行った。
 そのとき次回は全体のまとめについて記事にすると言ったが、
 角度の推定だけでひとつのエントリにした方が良さそうなので分割することにした。</p>
-
 <h1 id="姿勢の取得">姿勢の取得</h1>
-
 <p>倒立振子が自立するには垂直軸に対する自分の角度を知る必要がある。
 このためにジャイロセンサ・加速度センサ複合モジュールである
 <a href="https://www.amazon.co.jp/gp/product/B00K67X810/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&amp;psc=1">GY-521 MPU-60503軸ジャイロ+3軸加速度センサ</a>
 を用いた。
 GY-521はジャイロ・加速度センサチップであるMPU-6050にパスコン、3端子レギュレータなどを合わせて2.54mmピッチに変換したものである。
 ArduinoとはI2C方式で通信する。</p>
-
 <p>ジャイロセンサにより3軸の角速度、加速度センサにより同じく3軸の加速度が取得できる。
 ジャイロセンサのみ、または加速度センサのみで現在の角度を求めることも可能ではあるが、
 後述する通り両者を組み合わせることで精度を向上させることができる。</p>
-
 <h2 id="角度の推定方法">角度の推定方法</h2>
-
 <p>ジャイロセンサは角速度を測定するため、測定値を積分することで始点からの角度変化を求めることができる。
 しかしこの方法では測定値を足しつづけるため、誤差が蓄積し推定値が真の値からどんどんずれてしまう。</p>
-
 <p>加速度センサは重力加速度の方向がわかるため、垂直軸からの離角が直接計算できる。
 しかし加速度センサはノイズが大きく、瞬間的には角度の計算値は大きく揺れる。
 また水平方向に加速運動をしている場合、慣性力と重力加速度の合力が測定されるため計算値に誤差が乗る。</p>
-
 <p>そこで今回は相補フィルターを用いてジャイロセンサと加速度センサの値から角度を推定した。</p>
-
 <p>相補フィルタについては各自参照してもらいたいが、長期トレンドとしては加速度センサが、短期トレンドとしてはジャイロセンサが大きな影響を与えるようになっている。</p>
-
 <p>ジャイロセンサ・加速度センサのテストに用いたコードが以下である。</p>
-
-<pre><code class="language-gyro_test">// MPU-6050 Short Example Sketch
+<pre><code class="language-gyro_test" data-lang="gyro_test">// MPU-6050 Short Example Sketch
 // By Arduino User JohnChi
 // August 17, 2014
 // Public Domain
@@ -481,31 +451,23 @@ void loop(){
   delay(100);
 }
 
-</code></pre>
-
-<p>起動時に実行されるsetup()ではジャイロセンサのオフセットを除去するため、
+</code></pre><p>起動時に実行されるsetup()ではジャイロセンサのオフセットを除去するため、
 データを100回取って平均している。
 このとき機体は静止していることを前提としているためなるべく動かさないようにする。
 以降はこの平均をジャイロセンサの値から引いて使用している。
 また、同時に加速度センサも100回の平均を取り、これを垂直の値として使用している。
 これは制御の角度原点となるため、ここが垂直になっていないと倒立振子が横に動いていってしまう。</p>
-
 <p>角度計算のコードのなかでジャイロセンサからの角度の値を積分するのにデータ取得間隔としてdtを掛けている。
 このdtはdelay()の値やシリアル通信、そのほかの処理にかかる時間によって変化する。
 そのため、処理ごとにデータ取得間隔を実測してdtの値を決定しなければいけない。</p>
-
 <p>dtの値が間違っていると、ジャイロセンサからの角度の推定値が大きすぎ、または小さすぎてしまうため、機体を回転させると正しい値がでなくなる。（数秒待つと加速度センサの寄与により正しい値になっていく。）</p>
-
 <h1 id="実際のデータの確認">実際のデータの確認</h1>
-
 <p>確認のため角度を0度から約90度に手で起こし、また0度に戻したときのジャイロセンサ、加速度センサ、相補フィルタ出力の3つを比較したグラフを載せる。</p>
-
-<p><img src="/images/ 2019-05-19 at 20.50.07.png" alt="angle_plot" />
+<p>![angle_plot](/images/ 2019-05-19 at 20.50.07.png)
 青線が加速度センサ、赤線がジャイロセンサ、緑線が相補フィルタ出力となっている。
 青の加速度センサはノイズが多く、短期的にはあまり当てにならないことがわかる。
 拡大すると見えるが赤のジャイロセンサは0度がずれていっている。（オフセット除去によりドリフトはそれなりに抑えられている。）
-<img src="/images/ 2019-05-19 at 20.56.09.png" alt="angle_plot" /></p>
-
+![angle_plot](/images/ 2019-05-19 at 20.56.09.png)</p>
 <p>緑の相補フィルタは青のノイズを抑えながら赤に追従し、かつ原点のドリフトを抑えられている。</p>
 
 
@@ -531,8 +493,8 @@ void loop(){
 <div id="disqus-comment"></div>
 
 
-            </div>
 
+            </div>
             
             <div class="
                 col-lg-8 col-lg-offset-2
@@ -558,8 +520,20 @@ void loop(){
                         
                         
                         
+                        <a href="/tags/%E4%BC%91%E5%AD%A6" title="休学">
+                            休学
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%E5%80%92%E7%AB%8B%E6%8C%AF%E5%AD%90" title="倒立振子">
                             倒立振子
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%A4%A7%E5%AD%A6%E9%99%A2" title="大学院">
+                            大学院
                         </a>
                         
                         
@@ -580,6 +554,126 @@ void loop(){
     </div>
 </article>
 
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="KFTamang Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:sub.sonic.detonation@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/KFTamang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; KFTamang Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83537418-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

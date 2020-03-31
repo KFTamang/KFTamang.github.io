@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on KFTamang Blog</title>
@@ -6,15 +6,87 @@
     <description>Recent content in Tags on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 13 Apr 2019 01:16:41 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 29 Feb 2020 03:14:35 +0900</lastBuildDate>
     
 	<atom:link href="https://KFTamang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>休学</title>
+      <link>https://KFTamang.github.io/tags/%E4%BC%91%E5%AD%A6/</link>
+      <pubDate>Sat, 29 Feb 2020 03:14:35 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/%E4%BC%91%E5%AD%A6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>大学院</title>
+      <link>https://KFTamang.github.io/tags/%E5%A4%A7%E5%AD%A6%E9%99%A2/</link>
+      <pubDate>Sat, 29 Feb 2020 03:14:35 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/%E5%A4%A7%E5%AD%A6%E9%99%A2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NT金沢2019</title>
+      <link>https://KFTamang.github.io/tags/nt%E9%87%91%E6%B2%A22019/</link>
+      <pubDate>Mon, 15 Jul 2019 21:53:44 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/nt%E9%87%91%E6%B2%A22019/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>倒立振子</title>
+      <link>https://KFTamang.github.io/tags/%E5%80%92%E7%AB%8B%E6%8C%AF%E5%AD%90/</link>
+      <pubDate>Mon, 15 Jul 2019 21:53:44 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/%E5%80%92%E7%AB%8B%E6%8C%AF%E5%AD%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FPGA</title>
+      <link>https://KFTamang.github.io/tags/fpga/</link>
+      <pubDate>Thu, 23 May 2019 01:14:50 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/fpga/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SoC</title>
+      <link>https://KFTamang.github.io/tags/soc/</link>
+      <pubDate>Thu, 23 May 2019 01:14:50 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/soc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Xilinx</title>
+      <link>https://KFTamang.github.io/tags/xilinx/</link>
+      <pubDate>Thu, 23 May 2019 01:14:50 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/xilinx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zynqberry</title>
+      <link>https://KFTamang.github.io/tags/zynqberry/</link>
+      <pubDate>Thu, 23 May 2019 01:14:50 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/tags/zynqberry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>環境モニタ</title>
       <link>https://KFTamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/</link>
-      <pubDate>Sat, 13 Apr 2019 01:16:41 +0900</pubDate>
+      <pubDate>Sat, 20 Apr 2019 21:47:09 +0900</pubDate>
       
       <guid>https://KFTamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/</guid>
       <description></description>

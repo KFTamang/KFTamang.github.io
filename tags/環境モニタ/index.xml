@@ -1,148 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>KFTamang Blog</title>
-    <link>https://KFTamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/index.xml</link>
-    <description>Recent content on KFTamang Blog</description>
+    <title>環境モニタ on KFTamang Blog</title>
+    <link>https://KFTamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/</link>
+    <description>Recent content in 環境モニタ on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <atom:link href="https://KFTamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Apr 2019 21:47:09 +0900</lastBuildDate>
+    
+	<atom:link href="https://KFTamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>赤外線リモコンをラズパイから操作する</title>
-      <link>https://kftamang.github.io/post/environment_monitor_2/</link>
+      <link>https://KFTamang.github.io/post/environment_monitor_2/</link>
       <pubDate>Sat, 20 Apr 2019 21:47:09 +0900</pubDate>
       
-      <guid>https://kftamang.github.io/post/environment_monitor_2/</guid>
-      <description>
-
-&lt;h1 id=&#34;前回のまとめと今回の内容&#34;&gt;前回のまとめと今回の内容&lt;/h1&gt;
-
-&lt;p&gt;前回の記事で室内の環境モニタを構築し、slack上から部屋の温湿度を確認することができるようになりました。
-しかし、目的はこれで終わりではなく、あくまで部屋の空調を外部から操作できるようにすることにあります。
-そのためにラズパイからエアコンを操作できるようにします。&lt;/p&gt;
-
-&lt;h1 id=&#34;ラズパイから赤外線リモコンの操作&#34;&gt;ラズパイから赤外線リモコンの操作&lt;/h1&gt;
-
-&lt;p&gt;ラズパイからエアコンを操作する場合、もっともよく用いられる方法は赤外線LEDを使用してリモコンのコードを再現し、
-リモコンから操作を受けているようエアコンに誤認させる方法です。
-そのメリットとして、&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;数百円の電子部品で製作可能&lt;/li&gt;
-&lt;li&gt;多くの機種に対応&lt;/li&gt;
-&lt;li&gt;エアコン以外の家電操作にも応用可能&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;といった特徴があるからです。
-そのほかには、&lt;a href=&#34;https://nature.global/&#34;&gt;Nature Remo&lt;/a&gt;という製品があります。
-これも赤外線のコードを送信することによりAPI経由で様々な家電を操作できるようです。
-ただ、価格は7000円程度とエアコンを動かすだけにはもったいないお値段がします。
-なにより自分で作ったほうがやってる感がある。
-というわけで以下のサイトを参考に赤外線を送受信する回路を組んでみました。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://qiita.com/takjg/items/e6b8af53421be54b62c9&#34;&gt;格安スマートリモコンの作り方 - Qiita&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://vintagechips.wordpress.com/2013/10/05/%E8%B5%A4%E5%A4%96%E7%B7%9Aled%E3%83%89%E3%83%A9%E3%82%A4%E3%8
-3%96%E5%9B%9E%E8%B7%AF%E3%81%AE%E6%B1%BA%E5%AE%9A%E7%89%88/&#34;&gt;赤外線LEDドライブ回路の決定版 - 電脳伝説&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;回路図&#34;&gt;回路図&lt;/h1&gt;
-
-&lt;p&gt;雑な回路図を示します。実際の配線に即した図となっています。
-&lt;img src=&#34;https://KFTamang.github.io/images/P_20190420_222808_vHDR_Auto.jpg&#34; alt=&#34;回路図&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;ブレッドボードによる仮組み&#34;&gt;ブレッドボードによる仮組み&lt;/h1&gt;
-
-&lt;p&gt;いきなりユニバーサル基板に実装して失敗すると目も当てられないので、
-まずブレッドボードに仮組みして動作確認をしました。&lt;/p&gt;
-
-&lt;p&gt;赤外線なので目には見えませんが、スマートフォンで写真を撮ると光っていることが確認できます。
-&lt;img src=&#34;https://KFTamang.github.io/images/P_20190415_234335_vHDR_On.jpg&#34; alt=&#34;ブレッドボード&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;LEDの発光が確認できたら、さらにエアコンの操作ができるかチェックを行います。
-赤外線受信モジュールにリモコンを向けてボタンを押し、コードを記録します。
-その次にLEDをエアコンに向けてコードを再現すると、押したボタンの操作が実行されました。
-動作確認成功です。&lt;/p&gt;
-
-&lt;p&gt;LEDの電流を制限する抵抗の値は最初明るさを重視して27ohmとしましたが、
-54ohmでも操作できたため、以後この値を使用しました。（27ohmでは連続運転の絶対定格に違反するため）&lt;/p&gt;
-
-&lt;h1 id=&#34;ユニバーサル基板に本組み&#34;&gt;ユニバーサル基板に本組み&lt;/h1&gt;
-
-&lt;p&gt;動作確認がとれたところで部品を一旦外し、ユニバーサル基板に実装していきます。
-仮組み試験の際、LEDには強い指向性があることが判明したため、LEDを二つ向きをずらしながら実装しています。
-完成した基板がこちら。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://KFTamang.github.io/images/P_20190416_234655_vHDR_On.jpg&#34; alt=&#34;ユニバーサル基板&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;こちらでも動作確認を行い、エアコンやテレビが操作できることがわかりました。&lt;/p&gt;
-
-&lt;p&gt;次回はこれを使い、slack上からエアコンを操作することにしたいと思います。&lt;/p&gt;
-</description>
+      <guid>https://KFTamang.github.io/post/environment_monitor_2/</guid>
+      <description>前回のまとめと今回の内容 前回の記事で室内の環境モニタを構築し、slack上から部屋の温湿度を確認することができるようになりました。 しかし、目</description>
     </item>
     
     <item>
       <title>環境モニタの製作</title>
-      <link>https://kftamang.github.io/post/environment_monitor/</link>
+      <link>https://KFTamang.github.io/post/environment_monitor/</link>
       <pubDate>Sat, 13 Apr 2019 01:16:41 +0900</pubDate>
       
-      <guid>https://kftamang.github.io/post/environment_monitor/</guid>
-      <description>
-
-&lt;h1 id=&#34;背景&#34;&gt;背景&lt;/h1&gt;
-
-&lt;p&gt;これから夏がやってくるとクーラーのお世話になる時間がながくなります。
-出かけている間にクーラーを付けっ放しにするのは（おそらく）不経済であるため、
-住人が全員外出してるのにクーラーがオンの状態になっているときはアラートを出して、
-外出先から運転を停止されることができると便利です。
-また、冬場には部屋を閉め切って暖房を使うため、二酸化炭素の濃度が上昇し
-生産性や健康に害を及ぼす可能性があります。
-そのほかの空気中のガスをモニターしておくことで換気などのアラートを出すことができます。&lt;/p&gt;
-
-&lt;p&gt;また、気温や湿度のログを取っておくことで、電気節約や結露防止対策などの有効性検討の材料とすることができます。&lt;/p&gt;
-
-&lt;p&gt;以上の点から共有スペースの気温・湿度、有害物質気体の濃度などを計測的に測定し、
-ログを残すとともにエアコンや換気扇を操作できるようにします。&lt;/p&gt;
-
-&lt;h1 id=&#34;機器の構成&#34;&gt;機器の構成&lt;/h1&gt;
-
-&lt;p&gt;使用した部品は以下の表に示しています。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ラズベリーパイ3 モデルB+&lt;/li&gt;
-&lt;li&gt;温湿度センサ DHT11&lt;/li&gt;
-&lt;li&gt;炭素皮膜抵抗 1k ohm&lt;/li&gt;
-&lt;li&gt;温度・気圧センサ BMP280 *&lt;/li&gt;
-&lt;li&gt;赤外線LED *&lt;/li&gt;
-&lt;li&gt;赤外線受信モジュール *&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;(ただし*印は未実装)&lt;/p&gt;
-
-&lt;p&gt;機器の構成は絵のとおり、ラズパイのGPIOにDHT11を接続し気温・湿度を取得します。
-接続していませんが、温度・気圧センサであるBMP280はI2C通信でラズパイと接続します。
-気温・湿度・気圧は10分ごとに計測し、IFTTT経由でGoogle Driveのスプレッドシートに記録します。
-またラズパイ上ではslackとの通信を行うslackbotを走らせ、
-専用チャンネルに「温度」を含む文章の投稿に反応して温湿度を投稿するようにしています。&lt;/p&gt;
-
-&lt;p&gt;まだ未実装ですが、赤外線送信用のLEDと赤外線受信モジュールをGPIOに接続し、
-IRLRというPythonライブラリを利用して家電（今のところエアコン）を操作できるようにする予定です。&lt;/p&gt;
-
-&lt;h1 id=&#34;動作&#34;&gt;動作&lt;/h1&gt;
-
-&lt;p&gt;スクリーンショットのようにslackの投稿に反応して部屋の温度・湿度を返してくれます。
-&lt;img src=&#34;https://KFTamang.github.io/images/environmental_sonsor.png&#34; alt=&#34;動作&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;参考文献&#34;&gt;参考文献&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://qiita.com/takjg/items/e6b8af53421be54b62c9&#34;&gt;格安スマートリモコンの作り方 - Qiita&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://vintagechips.wordpress.com/2013/10/05/%E8%B5%A4%E5%A4%96%E7%B7%9Aled%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%E5%9B%9E%E8%B7%AF%E3%81%AE%E6%B1%BA%E5%AE%9A%E7%89%88/&#34;&gt;赤外線LEDドライブ回路の決定版 - 電脳伝説&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://KFTamang.github.io/post/environment_monitor/</guid>
+      <description>背景 これから夏がやってくるとクーラーのお世話になる時間がながくなります。 出かけている間にクーラーを付けっ放しにするのは（おそらく）不経済であ</description>
     </item>
     
   </channel>
