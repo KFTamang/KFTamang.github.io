@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="ブログ始めました。" />
-    <meta property="og:title" content="ブログ始めました。" />
-    <meta property="twitter:title" content="ブログ始めました。" />
+    <meta name="title" content="本質から理解するgit2　コミット編" />
+    <meta property="og:title" content="本質から理解するgit2　コミット編" />
+    <meta property="twitter:title" content="本質から理解するgit2　コミット編" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/images/logo/logo.jpg">
 
-    <title>ブログ始めました。-KFTamang Blog</title>
+    <title>本質から理解するgit2　コミット編-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/test/">
+    <link rel="canonical" href="/post/git2/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -160,8 +160,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/git" title="git">
+                            git
+                        </a>
+                        
+                        <a class="tag" href="/tags/software" title="software">
+                            software
+                        </a>
+                        
                     </div>
-                    <h1>ブログ始めました。</h1>
+                    <h1>本質から理解するgit2　コミット編</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -169,9 +177,9 @@
 			    KFTamang
 			 
 			on 
-			Sunday, April 7, 2019
+			Wednesday, January 6, 2021
                         
-                            <span id="/post/test/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/git2/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -329,39 +337,63 @@ $(function() {
                 <header>
                     <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#本記事の内容">本記事の内容</a></li>
+    <li><a href="#コミットの捉え方">コミットの捉え方</a></li>
+    <li><a href="#コミットの粒度">コミットの粒度</a></li>
+    <li><a href="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
                 
-                <hr>
-<h1 id="技術系のブログを初めました">技術系のブログを初めました</h1>
-<p>友人から進められたのと、履歴書を書いていて必要性を感じたため、技術系の話をするブログを初めてみました。</p>
-<p>本ブログの目的は</p>
+                <h2 id="本記事の内容">本記事の内容</h2>
+<p><a href="https://kftamang.github.io/post/git/">前回の記事</a>ではgitの内部構造に焦点をあてて解説しました。
+今回はgitをどのような思想のもと、実際にどのように使うかについてコミットの面から解説します。
+これから紹介するのはあくまで私の経験に基づく考え方であり、どの場面でも通用するものではありませんが、ひとつの考え方として覚えておいて損はないと思います。
+また前回同様、基本的なコマンドの使い方は既知とします。</p>
+<h2 id="コミットの捉え方">コミットの捉え方</h2>
+<p>まずgitの基本中の基本となるコミットとはなにかを考えます。
+コミットとは単なる作業の途中経過の履歴ではなく、動作するプログラムのスナップショットであるべきです。
+言い換えれば、コミットしてよいのは、ビルドが通り、実行時エラーも起きずテストもすべてパスする場合のみだということです。</p>
+<p>この理由は、プログラム開発を細かいステップに分割し、開発を効率化するためです。
+数百行のプログラムでさえ、動作のすべてを脳内で把握するのは難しいことです。
+なので、プログラム開発は「ある範囲で完成した」といえる状態を少しずつ拡張していく作業にして、
+1ステップでの変更部分をなるべく小さく抑えることが重要となります。
+変更が少なければ少ないほど、脳内のワーキングメモリーで記憶しやすくなり、考慮漏れなどのバグが少なくなります。</p>
+<p>この「ある範囲で完成した」状態をそのままスナップショットとして保存したのが、コミットになります。
+そうすると開発というのは、「ある範囲で完成している」コミットに対して（理想的には）少量の変更を加えて、
+「もう少し広い範囲で完成している」コミットを生み出すという作業になります。</p>
+<p>自分の例になりますがgitを使い始めた当初は、gitというツールをあまりよく理解していませんでした。
+gitとは修正不能なほど破壊的な変更をしてしまったときでもプログラムを途中まで戻せるような履歴の保存ツールだと考えていました。
+なので、機能やビルドの通る/通らないにかかわらずこまめなコミットをしたりしていました。
+こまめなコミット自体は悪いことではないですが、これだとどのコミットでうまくいったのか、訳が分からなくなってしまいます。
+これはそもそもgitはどのようにしてプログラム開発を効率化し、そのためのコミットとはどういうものなのかを理解せずに使っていたのが根本的な原因です。</p>
+<p>とはいえ、作業を一時的にコミットとして保存したい場合もあるかと思います。
+その場合、私はコミットメッセージの冒頭にWIP (work in progress, 作業中)をつけて区別するようにしています。
+また、WIPコミットにさらにコミットするときは<code>git commit --amend</code>を用いてコミットを上書きするようにしています。
+まだ変更が終わっていない場合は再びWIPコミットを、変更が完了して動作するようになった場合は変更内容をメッセージに記載し、
+あとから見るとWIPコミットが残らないようにしています。
+間違ってWIPコミットを消し忘れた場合は、<code>git rebase -i</code>でコミット履歴書き換えてしまいます。
+コミット履歴の書き換えはタブーとされることもありますが、フォークしたレポジトリならばありかと思っています。
+この辺はチームの方針があれば、それに従ってください。</p>
+<h2 id="コミットの粒度">コミットの粒度</h2>
+<p>コミットは、局所的にエラーのない状態で行うのはよいとして、どのような粒度でコミットをすればいいのでしょうか。
+これは基本的に、「一つのコミットで一つの機能」を目安にするのが良いかと思います。
+例えばファイルへの保存機能と追加するのとバグの修正はコミットを分けるとか、リファクタリングは単一のコミットとして行う、という具合です。</p>
+<p>個人で開発する場合はあまり厳密にならなくてもよいと思いますし、チームで開発する場合はなるべく厳密に適用したほうが良いかと思います。
+特にOSSでの開発では、あるコミットには単一の機能に関する記述のみが含まれるべきであり、無関係な記述は改行一つに至るまで含まれるべきではない、
+という思想のもとでレビューが行われることもあります。
+もちろんこれはレビュアーの負担を下げるためのルールであり、いじわるをしているなどと受け取らずにレビューを受け取りましょう。</p>
+<p>実際にわたしがインターンしていた時に、OSSのコミッターもしているエンジニアのもとでコードを書くことがあり、レビューではそのような指摘をされました。
+わたしのコミットには、複数の機能に関する記述や無駄な改行、空白が含まれており、コミット間のdiffが無駄に増えてレビュアーの負担も増えると教わりました。
+そのときの経験からgitを理解するうえでの大きな影響を受けました。</p>
+<h2 id="まとめ">まとめ</h2>
 <ul>
-<li>作ったもの・作ろうとしているものをまとめて他の人からわかりやすくすること(ポートフォリオ)</li>
-<li>作る過程で得られた技術の共有すること</li>
-<li>何かしらの問題に当たった時に助言を得ること</li>
-<li>作品を公開することや反応を得ることでモチベーションを維持すること</li>
+<li>コミットはビルドが通り、実行時エラーなどが出なくなった状態で行いましょう。</li>
+<li>テストがあれば、テストが通ったのを確認してからコミットしましょう。</li>
+<li>一つのコミットにはなるべく一つの機能に関する記述のみが含まれるようにしましょう。</li>
+<li>どのくらい厳密にこれを実行するかはチームのルールや雰囲気に従いましょう。</li>
 </ul>
-<p>となっています。</p>
-<hr>
-<h1 id="このブログを作成した方法">このブログを作成した方法</h1>
-<p>以下のページを参考に、github pagesとHugoを用いて作成しました。</p>
-<ul>
-<li>
-<p><a href="https://qiita.com/h6m3_u/items/5893a61091d258936716#3%E8%A8%98%E4%BA%8B%E3%81%AE%E4%BD%9C%E6%88%90"> Hugo + GitHub Pages でブログのプロトタイプを構築してみた。 </a></p>
-</li>
-<li>
-<p><a href="https://blog.mismithportfolio.com/web/20160207hugomyblog#g">【Hugo】ゴリラでも分かる静的サイトジェネレーターHugoでオリジナルテーマ作り</a></p>
-</li>
-<li>
-<p><a href="https://qiita.com/n0bisuke/items/4701481c3bca4df81b0b">Hugoで新規記事を作成するときのTips的なメモ</a>
-テーマはHuabing Zhao氏の<a href="https://themes.gohugo.io/hugo-theme-cleanwhite/">Clean White</a>を使用しています。</p>
-</li>
-</ul>
-<p>ブログ自体がgithubの練習を兼ねています。
-まだ殺風景ですが、おいおい充実させていきたいと思っています。</p>
-<p>(Clean Whiteの作者さんは中国系の方のようでフォントに違和感があるので直したい。)</p>
-<h1 id="参考文献">参考文献</h1>
-<p><a href="https://qiita.com/tbpgr/items/989c6badefff69377da7#-%E3%83%AA%E3%83%B3%E3%82%AF">マークダウン記法</a></p>
 
 
                 
@@ -369,11 +401,11 @@ $(function() {
                 <hr>
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/post/indeces/" data-toggle="tooltip" data-placement="top" title="進めているプロジェクト">Next
-                            Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/post/git/" data-toggle="tooltip" data-placement="top" title="本質から理解するgit　内部構造編">&larr;
+                            Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
