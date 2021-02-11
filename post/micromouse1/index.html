@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Zynqberryをいじる" />
-    <meta property="og:title" content="Zynqberryをいじる" />
-    <meta property="twitter:title" content="Zynqberryをいじる" />
+    <meta name="title" content="マイクロマウスはじめました[マイクロマウス]" />
+    <meta property="og:title" content="マイクロマウスはじめました[マイクロマウス]" />
+    <meta property="twitter:title" content="マイクロマウスはじめました[マイクロマウス]" />
     
 
     
-    <meta name="description" content="製作した作品や技術的なメモを記録してくブログです。">
-    <meta property="og:description" content="製作した作品や技術的なメモを記録してくブログです。" />
-    <meta property="twitter:description" content="製作した作品や技術的なメモを記録してくブログです。" />
+    <meta name="description" content="マイクロマウスの開発を始めました。書籍「苦しんで作るマイクロマウス　前編」に沿って機体を製作しました。モーターSCR13-2005、ピニオンギア、壁センサーLBR-127HLDについて解説します。">
+    <meta property="og:description" content="マイクロマウスの開発を始めました。書籍「苦しんで作るマイクロマウス　前編」に沿って機体を製作しました。モーターSCR13-2005、ピニオンギア、壁センサーLBR-127HLDについて解説します。" />
+    <meta property="twitter:description" content="マイクロマウスの開発を始めました。書籍「苦しんで作るマイクロマウス　前編」に沿って機体を製作しました。モーターSCR13-2005、ピニオンギア、壁センサーLBR-127HLDについて解説します。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/images/logo/logo.jpg">
 
-    <title>Zynqberryをいじる-KFTamang Blog</title>
+    <title>マイクロマウスはじめました[マイクロマウス]-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/zynqberry_1/">
+    <link rel="canonical" href="/post/micromouse1/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -160,24 +160,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/zynqberry" title="Zynqberry">
-                            Zynqberry
-                        </a>
-                        
-                        <a class="tag" href="/tags/fpga" title="FPGA">
-                            FPGA
-                        </a>
-                        
-                        <a class="tag" href="/tags/soc" title="SoC">
-                            SoC
-                        </a>
-                        
-                        <a class="tag" href="/tags/xilinx" title="Xilinx">
-                            Xilinx
+                        <a class="tag" href="/tags/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%83%9E%E3%82%A6%E3%82%B9" title="マイクロマウス">
+                            マイクロマウス
                         </a>
                         
                     </div>
-                    <h1>Zynqberryをいじる</h1>
+                    <h1>マイクロマウスはじめました[マイクロマウス]</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -185,9 +173,9 @@
 			    KFTamang
 			 
 			on 
-			Thursday, May 23, 2019
+			Wednesday, February 10, 2021
                         
-                            <span id="/post/zynqberry_1/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/micromouse1/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -345,28 +333,70 @@ $(function() {
                 <header>
                     <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ハードウェアについて">ハードウェアについて</a>
+      <ul>
+        <li><a href="#モーター-scr13-2005">モーター SCR13-2005</a></li>
+        <li><a href="#ピニオンギア">ピニオンギア</a></li>
+        <li><a href="#壁センサー-lbr-127hld">壁センサー LBR-127HLD</a></li>
+      </ul>
+    </li>
+    <li><a href="#ソフトウェア開発環境">ソフトウェア開発環境</a></li>
+  </ul>
+</nav>
                 
-                <h1 id="zynqberryとは">Zynqberryとは</h1>
-<p>ZynqberryとはXilinx社が出しているSoC(System on Chip)であるZynqを搭載したボードコンピュータであり、ドイツのTranz社が販売している。
-特徴としてはRasberry Pi Model 2 Bと同じ形状をしている。
-ZynqはFGPAであるPL部とArmプロセッサであるPS部が一つのチップに乗っており、
-FPGAとCPUのいいとこ取りで処理ができる。
-Zynqの評価基板といえばZyboが最も有名であるが、Zyboより安くてなんとなくZynqberryを買ってしまった。
-Tranz社の日本代理店である特殊電子株式会社以外にあんまり日本語のドキュメントが見つからないため、勉強ついでに参考となる情報をまとめていければと思う。</p>
-<p>とりあえず参考文献をまとめていく。</p>
-<h1 id="参考文献">参考文献</h1>
-<ul>
-<li>
-<p>Trenz社のRefference Design <a href="https://wiki.trenz-electronic.de/display/PD/TE0726+Reference+Designs">TE0726 Reference Designs</a></p>
-</li>
-<li>
-<p>Trenz社のTechnical Refference Manual <a href="https://wiki.trenz-electronic.de/display/PD/TE0726+TRM">TE0726 TRM</a></p>
-</li>
-<li>
-<p>Digikeyのチュートリアル <a href="https://www.digikey.com/eewiki/display/Motley/Getting+Started+with+the+ZynqBerry">Getting Started with the ZynqBerry</a></p>
-</li>
-</ul>
+                <h1 id="マイクロマウスはじめました">マイクロマウスはじめました</h1>
+<p>倒立振子に次ぐ電子工作としてマイクロマウスを初めてみました。
+きっかけはAmazonで「苦しんで作るマイクロマウス 前編」という本を見かけたからです。（Kindle版へのリンクは<a href="https://www.amazon.co.jp/%E8%8B%A6%E3%81%97%E3%82%93%E3%81%A7%E3%81%A4%E3%81%8F%E3%82%8B%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%83%9E%E3%82%A6%E3%82%B9-%E5%89%8D%E7%B7%A8-takeyuta-ebook/dp/B072FF7VCJ">こちら</a>）</p>
+<p>Kindle版のみの自主出版の本で、マイクロマウスのハードウェアの作り方が細かく具体的に書いてあります。電子書籍はこのような自主出版ができるのが素晴らしいですね。
+ちなみに2021年2月現在、残念ながら後編のソフトウェア編はまだ出版されていないようです。これを一人で書ききるのは相当なモチベーションと時間が必要でしょうから仕方ないかもしれませんが、
+続編を期待しながら待ちたいと思います。</p>
+<p>とはいえ続編を待ってはいられないので、ソフトウェアの制作をこれから進めていきたいと思います。</p>
+<p>ソフトウェアのGitHubレポジトリはこちら→<a href="https://github.com/KFTamang/Bontaco">https://github.com/KFTamang/Bontaco</a></p>
+<h2 id="ハードウェアについて">ハードウェアについて</h2>
+<p>実は機体のハードウェアは完成しているので、本記事では完成した機体について述べていきたいと思います。</p>
+<p>部品表はマウス本に載っていますが、執筆当時から数年たち、ディスコンとなって手に入りにくい部品がいくつかありました。
+そこで手に入れやすい部品を置き換えた部品表を<a href="https://docs.google.com/spreadsheets/d/1F_0-vw71zmjUdmgELo2EZzASPPmHTeYoibJGBpWsLXo/edit?usp=sharing">こちらのGoogleスプレッドシート</a>に公開しています。
+（執筆者のかたに公開していいか聞いたものの返事がまだもらえておらず、他の方も公開していたので勝手に問題なしと判断しました。問題あればご連絡ください。）</p>
+<p>マイクロマウス Bontaco号↓
+<img src="/images/PXL_20210211_032633763.jpg" alt="マイクロマウス Bontaco号"></p>
+<h3 id="モーター-scr13-2005">モーター SCR13-2005</h3>
+<p>部品代の半分以上はロータリーエンコーダ付きのモーターです。
+おそらくこれを買う決断が、最初の山場になるでしょう。2個で4万円します。一度買ったらとにかくいつか完成させましょう。
+このモーターはシチズンマイクロさんのホームページに載っている問い合わせ用メールアドレス（motor@micro.citizen.co.jp）に直接モーターを買いたい旨を連絡して購入しました。
+最初のメールを送ってからモーターが到着するまでに、自分の場合は2か月かかりました。</p>
+<p>モーター周辺のアップ↓
+<img src="/images/PXL_20210211_032656629_motor.jpg" alt="モーター"></p>
+<h3 id="ピニオンギア">ピニオンギア</h3>
+<p>モーターのシャフトに取り付ける小さなギアのことです。樹脂製だと壊れたりとトラブルのもとになりやすいそうなので、真鍮製のものが推奨されています。
+ただこのモーターのシャフト径は1.5mmと、もっとも出回っているホビー用タミヤモーターと異なります。
+なので真鍮製のピニオンギアの入手先は限られます。マウス本ではヨーロッパ（たぶんポーランド）のKKPMOという通販サイトから購入するよう書いてありました。
+自分も最初はそれに従って購入しましたが、半年以上経ってもいまだに届きません。メールも返ってきません。金返せという感じですが、3000円くらいなので泣き寝入りします。
+結局、中国の通販サイトであるAliExpressで購入しました。今はドローン用にギアの品ぞろえが良くなっているみたいです。</p>
+<p>ところがまだ問題があり、購入したギアは圧入用に内径が1.5mmピッタリになっています。しかしモーターはロータリーエンコーダ付きで、シャフトが反対側に飛び出していません。
+シチズンマイクロの方に聞いたところ、圧入は対応していないので、接着剤でつけてくれとのこと。危うく4万円のモーターを破壊することろでした。くわばらくわばら。</p>
+<p>なので結局手持ちのピンセットで真鍮のギアの内側を削り、内径を広げました。これでようやくシャフトにギアがつけられました。接着剤は金属用の強力接着剤であるメタルロックを使用しました。</p>
+<p>AliExpressで買った真鍮製のピニオンギア↓
+<img src="/images/PXL_20210211_035654662.jpg" alt="AliExpressで買った真鍮製のピニオンギア"></p>
+<h3 id="壁センサー-lbr-127hld">壁センサー LBR-127HLD</h3>
+<p>マウス本では壁のセンサーとしてTSL262Rを使用しています。これはフォトダイオードとアンプを組み合わせた赤外―可視光の受光センサーです。これが使えれば良かったのですが、TSL262Rは残念ながらディスコンになっています。
+そこで壁センサーにLBR-127HLD（<a href="http://akizukidenshi.com/catalog/g/gP-04500/">秋月電子リンク</a>）を使用しました。
+LBR-127HLDは赤外線LEDとフォトトランジスタがパッケージになっています。
+TSL262Rと違い受光素子がフォトダイオードなので出力は電流です。よってマイコンのADCで読み取るために、電圧へ変換する必要があります。
+このための抵抗値によってセンサーの感度が変化します。
+いくつか値を変えながら試したところ、5 ㎝先の壁を検知するためには抵抗値が1MΩ程度必要です。
+回路図↓でのR16です。
+<img src="/images/wall_sensor.PNG" alt="壁センサーの回路図"></p>
+<p>1MΩのチップ抵抗は部品表に入っておらず購入していなかったので、手持ちのアキシャル部品の抵抗を無理やりはんだ付けしました。
+今ははんだで固定されているだけなので、そのうち弾性接着剤などで固定しないと不具合の原因になりそうです。</p>
+<p>黒い四角のLBR-127HLDと無理やり実装したアキシャルの金属皮膜抵抗↓
+<img src="/images/PXL_20210211_032656629_sensor.jpg" alt="壁センサーの画像"></p>
+<h2 id="ソフトウェア開発環境">ソフトウェア開発環境</h2>
+<p>最初はソフトウェア開発にルネサスが提供しているIDEのHigh-performance Embedded Workshop(HEW)を使っていました。
+しかし補完はできない（調べればできるだろうけど調べてない）、gitは使えないと正直使いづらいので<a href="https://qiita.com/BonyChops/items/bcf39f2decc4f03a63df">HEWプロジェクトをVSCodeで扱う - Qiita</a>を参考にしてVSCodeへ移行しました。
+使いやすい！
+これを使って開発をしていきます。</p>
 
 
                 
@@ -375,15 +405,10 @@ Tranz社の日本代理店である特殊電子株式会社以外にあんまり
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/inverse_pendulum_3/" data-toggle="tooltip" data-placement="top" title="[倒立振子] 角度の推定">&larr;
+                        <a href="/post/git2/" data-toggle="tooltip" data-placement="top" title="本質から理解するgit2　コミット編">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/nt_kanazawa/" data-toggle="tooltip" data-placement="top" title="NT金沢2019に出展してきました">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
