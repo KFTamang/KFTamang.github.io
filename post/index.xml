@@ -6,10 +6,19 @@
     <description>Recent content in Posts on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 11 Mar 2021 21:00:09 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 18 Mar 2021 18:17:27 +0900</lastBuildDate>
     
 	<atom:link href="https://KFTamang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>モーターの制御1[マイクロマウス]</title>
+      <link>https://KFTamang.github.io/post/micromouse2/</link>
+      <pubDate>Thu, 18 Mar 2021 18:17:27 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/post/micromouse2/</guid>
+      <description>最初の課題：モーターの制御 マイクロマウスのソフトウェアで最初のマイルストーンとなるのがモーターの制御でしょう。 モーターの回転を滑らかに制御で</description>
+    </item>
     
     <item>
       <title>わたしの英語の勉強法</title>
