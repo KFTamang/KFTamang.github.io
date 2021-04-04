@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Zynqberryをいじる" />
-    <meta property="og:title" content="Zynqberryをいじる" />
-    <meta property="twitter:title" content="Zynqberryをいじる" />
+    <meta name="title" content="プロ意識について" />
+    <meta property="og:title" content="プロ意識について" />
+    <meta property="twitter:title" content="プロ意識について" />
     
 
     
-    <meta name="description" content="製作した作品や技術的なメモを記録してくブログです。">
-    <meta property="og:description" content="製作した作品や技術的なメモを記録してくブログです。" />
-    <meta property="twitter:description" content="製作した作品や技術的なメモを記録してくブログです。" />
+    <meta name="description" content="プロフェッショナルとはどのようなものでしょうか。大きなスケールから小さなスケールまで自分の仕事を把握し、手ずから泥臭い作業から本質を見抜ける者だと私は思います。そこに至るには、 よく読み、よく手を動かし、よく話すことが必要です。">
+    <meta property="og:description" content="プロフェッショナルとはどのようなものでしょうか。大きなスケールから小さなスケールまで自分の仕事を把握し、手ずから泥臭い作業から本質を見抜ける者だと私は思います。そこに至るには、 よく読み、よく手を動かし、よく話すことが必要です。" />
+    <meta property="twitter:description" content="プロフェッショナルとはどのようなものでしょうか。大きなスケールから小さなスケールまで自分の仕事を把握し、手ずから泥臭い作業から本質を見抜ける者だと私は思います。そこに至るには、 よく読み、よく手を動かし、よく話すことが必要です。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/images/logo/logo.jpg">
 
-    <title>Zynqberryをいじる-KFTamang Blog</title>
+    <title>プロ意識について-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/zynqberry_1/">
+    <link rel="canonical" href="/post/professionalism/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -163,34 +163,22 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/zynqberry" title="Zynqberry">
-                            Zynqberry
-                        </a>
-                        
-                        <a class="tag" href="/tags/fpga" title="FPGA">
-                            FPGA
-                        </a>
-                        
-                        <a class="tag" href="/tags/soc" title="SoC">
-                            SoC
-                        </a>
-                        
-                        <a class="tag" href="/tags/xilinx" title="Xilinx">
-                            Xilinx
+                        <a class="tag" href="/tags/%E4%BB%95%E4%BA%8B%E8%AB%96" title="仕事論">
+                            仕事論
                         </a>
                         
                     </div>
-                    <h1>Zynqberryをいじる</h1>
+                    <h1>プロ意識について</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
 			
-			    KFTamang
+			         &#34;KFTamang&#34;
 			 
 			on 
-			Thursday, May 23, 2019
+			Saturday, April 3, 2021
                         
-                            <span id="/post/zynqberry_1/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/professionalism/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -234,28 +222,41 @@
                 <header>
                     <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#know-what-ones-doing">Know what one&rsquo;s doing</a></li>
+    <li><a href="#神は細部に宿る">神は細部に宿る</a></li>
+    <li><a href="#よく読みよく手を動かしよく話す">よく読み、よく手を動かし、よく話す</a></li>
+  </ul>
+</nav>
                 
-                <h1 id="zynqberryとは">Zynqberryとは</h1>
-<p>ZynqberryとはXilinx社が出しているSoC(System on Chip)であるZynqを搭載したボードコンピュータであり、ドイツのTranz社が販売している。
-特徴としてはRasberry Pi Model 2 Bと同じ形状をしている。
-ZynqはFGPAであるPL部とArmプロセッサであるPS部が一つのチップに乗っており、
-FPGAとCPUのいいとこ取りで処理ができる。
-Zynqの評価基板といえばZyboが最も有名であるが、Zyboより安くてなんとなくZynqberryを買ってしまった。
-Tranz社の日本代理店である特殊電子株式会社以外にあんまり日本語のドキュメントが見つからないため、勉強ついでに参考となる情報をまとめていければと思う。</p>
-<p>とりあえず参考文献をまとめていく。</p>
-<h1 id="参考文献">参考文献</h1>
-<ul>
-<li>
-<p>Trenz社のRefference Design <a href="https://wiki.trenz-electronic.de/display/PD/TE0726+Reference+Designs">TE0726 Reference Designs</a></p>
-</li>
-<li>
-<p>Trenz社のTechnical Refference Manual <a href="https://wiki.trenz-electronic.de/display/PD/TE0726+TRM">TE0726 TRM</a></p>
-</li>
-<li>
-<p>Digikeyのチュートリアル <a href="https://www.digikey.com/eewiki/display/Motley/Getting+Started+with+the+ZynqBerry">Getting Started with the ZynqBerry</a></p>
-</li>
-</ul>
+                <h1 id="自分の考えるプロの在り方">自分の考えるプロの在り方</h1>
+<p>仕事の新人研修で、プロの在り方とはというのを考えました。
+せっかくなので書き残しておこうと思います。</p>
+<h2 id="know-what-ones-doing">Know what one&rsquo;s doing</h2>
+<p>英語にはKnow what one&rsquo;s doing/talking aboutという表現があり、これは端的にプロの在り方を示していると思います。
+例えばHe knows what he&rsquo;s doing/talking about.というように使います。
+意味はそのまま、自分が何をしているかわかっている、というようなものですが、日本語で言った時よりもかなり強く
+肯定的にほめるニュアンスを持ちます。</p>
+<p>自分が何をしているかわかっているというのは、結構ハードルが高いです。</p>
+<p>大きなスケールでは、自分がやっている仕事の大目的は何なのか、その大目的の背景にはどのような歴史的流れがあるのか、
+他のグループはどのようなことをやっていて自分たちとはどのような違いがあるのか、時間的空間的そうほうで把握していること。</p>
+<p>小さなスケールでは、大目的に向かうためにどのように具体的な行動にブレークダウンするのか、なぜ他のやり方でなくそのやり方なのか、
+技術的な詳細まで把握していること。</p>
+<p>つまり大きなスケールから小さなスケールまですべてのスケールで、そのスケールにあった理解をしていること。
+これがKnow what one&rsquo;s doingの状態です。</p>
+<p>この状態に至るためには、たくさん勉強すること、先人の話をよく聞くこと、取り組んでいる作業に真剣に向き合い頭を使うことが必要だと考えています。</p>
+<h2 id="神は細部に宿る">神は細部に宿る</h2>
+<p>もうひとつ自分がプロに必要だと思うことは、泥臭い作業を手ずから行うことです。</p>
+<p>多くの具体的作業は煩雑で細々とした準備にかなりの時間を使います。
+例えばソフトウェアであればドキュメントを調べたり、ハードウェアだったらジグを作ったりです。</p>
+<p>しかし、この事前準備が作業を手際よく終わらせるのに重要であったり、もしかすると実は本質的に重要なことが隠れていたりします。
+そういうことに気づくには、具体的に手を動かして作業をこなすほかありません。</p>
+<p>プロフェッショナルの流儀で宮崎駿が言っていた、「大事なものはたいていめんどくさい」というのはそういう意味なのだと思っています。</p>
+<h2 id="よく読みよく手を動かしよく話す">よく読み、よく手を動かし、よく話す</h2>
+<p>上で述べたプロに近づくには、これしかないのかなと思います。</p>
+<p>よく読み、よく手を動かし、よく話す。</p>
+<p>簡単になれないからこそ、プロフェッショナルです。</p>
 
 
                 
@@ -264,15 +265,10 @@ Tranz社の日本代理店である特殊電子株式会社以外にあんまり
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/inverse_pendulum_3/" data-toggle="tooltip" data-placement="top" title="[倒立振子] 角度の推定">&larr;
+                        <a href="/post/intern1/" data-toggle="tooltip" data-placement="top" title="インターンで人工衛星のFPGAを開発した話1~前置き編~">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/nt_kanazawa/" data-toggle="tooltip" data-placement="top" title="NT金沢2019に出展してきました">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
