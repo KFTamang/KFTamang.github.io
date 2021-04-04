@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>FPGA on KFTamang Blog</title>
-    <link>https://KFTamang.github.io/tags/fpga/</link>
-    <description>Recent content in FPGA on KFTamang Blog</description>
+    <title>インターン on KFTamang Blog</title>
+    <link>https://KFTamang.github.io/tags/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%B3/</link>
+    <description>Recent content in インターン on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sat, 03 Apr 2021 19:14:50 +0900</lastBuildDate>
     
-	<atom:link href="https://KFTamang.github.io/tags/fpga/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://KFTamang.github.io/tags/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://KFTamang.github.io/post/intern1/</guid>
       <description>衛星開発ベンチャーで長期インターン 超小型衛星を開発するベンチャー企業であるアクセルスペース社で10か月ほど有給インターンをしていました。 いく</description>
-    </item>
-    
-    <item>
-      <title>Zynqberryをいじる</title>
-      <link>https://KFTamang.github.io/post/zynqberry_1/</link>
-      <pubDate>Thu, 23 May 2019 01:14:50 +0900</pubDate>
-      
-      <guid>https://KFTamang.github.io/post/zynqberry_1/</guid>
-      <description>Zynqberryとは ZynqberryとはXilinx社が出しているSoC(System on Chip)であるZynqを搭載したボードコンピュ</description>
     </item>
     
   </channel>
