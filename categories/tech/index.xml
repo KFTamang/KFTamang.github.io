@@ -6,19 +6,10 @@
     <description>Recent content in Tech on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 03 Apr 2021 19:14:50 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 18 Mar 2021 18:17:27 +0900</lastBuildDate>
     
 	<atom:link href="https://KFTamang.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>インターンで人工衛星のFPGAを開発した話1~前置き編~</title>
-      <link>https://KFTamang.github.io/post/intern1/</link>
-      <pubDate>Sat, 03 Apr 2021 19:14:50 +0900</pubDate>
-      
-      <guid>https://KFTamang.github.io/post/intern1/</guid>
-      <description>衛星開発ベンチャーで長期インターン 超小型衛星を開発するベンチャー企業であるアクセルスペース社で10か月ほど有給インターンをしていました。 いく</description>
-    </item>
     
     <item>
       <title>モーターの制御1[マイクロマウス]</title>
