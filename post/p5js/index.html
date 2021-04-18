@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="進めているプロジェクト" />
-    <meta property="og:title" content="進めているプロジェクト" />
-    <meta property="twitter:title" content="進めているプロジェクト" />
+    <meta name="title" content="ブログにp5.jsを埋め込む" />
+    <meta property="og:title" content="ブログにp5.jsを埋め込む" />
+    <meta property="twitter:title" content="ブログにp5.jsを埋め込む" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/images/logo/logo.jpg">
 
-    <title>進めているプロジェクト-KFTamang Blog</title>
+    <title>ブログにp5.jsを埋め込む-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/indeces/">
+    <link rel="canonical" href="/post/p5js/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -168,18 +168,22 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/p5.js" title="p5.js">
+                            p5.js
+                        </a>
+                        
                     </div>
-                    <h1>進めているプロジェクト</h1>
+                    <h1>ブログにp5.jsを埋め込む</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
 			
-		            KFTamang Blog
+			    KFTamang
 			 
 			on 
-			Sunday, April 7, 2019
+			Sunday, April 18, 2021
                         
-                            <span id="/post/indeces/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/p5js/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -223,18 +227,81 @@
                 <header>
                     <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ショートコード">ショートコード</a></li>
+    <li><a href="#使い方">使い方</a></li>
+    <li><a href="#具体例">具体例</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
                 
-                <h1 id="現在進めているプロジェクト">現在進めているプロジェクト</h1>
-<p>今現在個人で実現したいと思っているプロジェクトを列挙します。
-放置気味になっているものもあるので、ここに挙げることでモチベーションにしていきたいです。</p>
+                <h1 id="ビジュアルプログラミング言語processingをhugoブログに埋め込む">ビジュアルプログラミング言語processingをHUGOブログに埋め込む</h1>
+<p>processingとは視覚的表現などを簡単にできることを目指したC言語ライクなプログラミング言語です。
+C言語などと異なり、描画のための関数などが最初から準備されており、プログラミングに詳しくないアーティストや
+子供でも視覚的作品を作ることができます。</p>
+<p>今回はprocessingのjavascript移植版であるp5.jsをHUGOブログに埋め込んで見たいと思います。</p>
+<h2 id="ショートコード">ショートコード</h2>
+<p>静的サイトジェネレーターであるHUGOにはショートコードという機能があり、事前に設定したhtmlを任意の位置に展開することができます。
+また、展開先にパラメータを渡すこともできます。
+今回はこのショートコードを使ってp5.jsを実行する環境を作りました。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-p5js.html" data-lang="p5js.html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p5js&#34;</span>&gt;
+    &lt;<span style="color:#f92672">iframe</span> <span style="color:#a6e22e">srcdoc</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;  &lt;head&gt;
+</span><span style="color:#e6db74">        &lt;script src=&amp;quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js&amp;quot&gt;&lt;/script&gt;
+</span><span style="color:#e6db74">        &lt;script src=&amp;quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/addons/p5.sound.min.js&amp;quot&gt;&lt;/script&gt;
+</span><span style="color:#e6db74">        &lt;link rel=&amp;quotstylesheet&amp;quot type=&amp;quottext/css&amp;quot href=&amp;quotstyle.css&amp;quot&gt;
+</span><span style="color:#e6db74">        &lt;meta charset=&amp;quotutf-8&amp;quot /&gt;
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">      &lt;/head&gt;
+</span><span style="color:#e6db74">      &lt;body&gt;
+</span><span style="color:#e6db74">        &lt;script src=&amp;quot/p5js/{{.Get 0}}.js&amp;quot&gt;&lt;/script&gt;
+</span><span style="color:#e6db74">      &lt;/body&gt;&#34;</span>
+      <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;400px&#34;</span>&gt;&lt;/<span style="color:#f92672">iframe</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+
+</code></pre></div><p>このショートコードは<code>iframe</code>に<code>srcdoc</code>でページの全体を文字列として渡しています。
+パラメーターとしてファイル名を渡すことで、/p5jsディレクトリ以下のp5.jsファイルを実行できます。</p>
+<h2 id="使い方">使い方</h2>
+<p>使用しているテーマ内の<code>layouts/partilas/</code>に上記の<code>p5js.html</code>を配置します。
+これでショートコードp5jsが定義され、使えるようになりました。</p>
+<p>あとはブログの任意の個所で<code>&quot;{ {&lt; p5js (ファイル名).js &gt;} }&quot;</code>と記述すれば<code>/p5js</code>ディレクトリに配置されてある<code>(ファイル名).js</code>が実行されます。
+(二つの<code>{</code>の間のスペースは削除してください。)</p>
+<h2 id="具体例">具体例</h2>
+<p>test.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-test.js" data-lang="test.js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myCanvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createCanvas</span>(<span style="color:#a6e22e">windowWidth</span>, <span style="color:#a6e22e">windowHeight</span>);
+    <span style="color:#a6e22e">myCanvas</span>.<span style="color:#66d9ef">class</span>(<span style="color:#e6db74">&#39;backgroundsketch&#39;</span>);
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">mouseMoved</span>() {
+	<span style="color:#a6e22e">ellipse</span>(<span style="color:#a6e22e">mouseX</span>, <span style="color:#a6e22e">mouseY</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>);
+}
+</code></pre></div><div class="p5js">
+    <iframe srcdoc="  <head>
+        <script src=&quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js&quot></script>
+        <script src=&quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/addons/p5.sound.min.js&quot></script>
+        <link rel=&quotstylesheet&quot type=&quottext/css&quot href=&quotstyle.css&quot>
+        <meta charset=&quotutf-8&quot />
+    
+      </head>
+      <body>
+        <script src=&quot/p5js/test.js&quot></script>
+      </body>"
+      width="100%" height="400px"></iframe>
+</div>
+
+
+<h2 id="参考文献">参考文献</h2>
 <ul>
-<li><a href="https://kftamang.github.io/tags/%E7%92%B0%E5%A2%83%E3%83%A2%E3%83%8B%E3%82%BF/">ラズパイを用いた部屋の環境モニタ</a></li>
-<li>すだれコリメータ(Rotation Modulation Collimator, RMC)シミュレータ
-( <a href="https://github.com/KFTamang/RMCsimulator">githubレポジトリ</a> )</li>
-<li><a href="https://kftamang.github.io/tags/%E5%80%92%E7%AB%8B%E6%8C%AF%E5%AD%90/">Arduinoを用いた倒立振子</a></li>
-<li>音波干渉計</li>
-<li>マイクアンプ</li>
+<li>
+<p>p5.jsのサイトへの埋め込みかた <a href="https://github.com/processing/p5.js/wiki/Embedding-p5.js">Embedding p5.js</a></p>
+</li>
+<li>
+<p>p5.jsについて <a href="https://happycoding.io/tutorials/p5js/web-dev">From p5.js to Web Dev</a></p>
+</li>
+<li>
+<p>HUGOのショートコードの作り方 <a href="https://gohugo.io/templates/shortcode-templates/">Create Your Own Shortcodes - HUGO</a></p>
+</li>
 </ul>
 
 
@@ -244,15 +311,10 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/test/" data-toggle="tooltip" data-placement="top" title="ブログ始めました。">&larr;
+                        <a href="/post/professionalism/" data-toggle="tooltip" data-placement="top" title="プロ意識について">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/environment_monitor/" data-toggle="tooltip" data-placement="top" title="環境モニタの製作">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

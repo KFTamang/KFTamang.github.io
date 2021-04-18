@@ -6,10 +6,19 @@
     <description>Recent content in Posts on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 03 Apr 2021 19:19:50 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Apr 2021 08:00:09 +0900</lastBuildDate>
     
 	<atom:link href="https://KFTamang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ブログにp5.jsを埋め込む</title>
+      <link>https://KFTamang.github.io/post/p5js/</link>
+      <pubDate>Sun, 18 Apr 2021 08:00:09 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/post/p5js/</guid>
+      <description>ビジュアルプログラミング言語processingをHUGOブログに埋め込む processingとは視覚的表現などを簡単にできることを目指した</description>
+    </item>
     
     <item>
       <title>プロ意識について</title>
