@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="ブログにp5.jsを埋め込む" />
-    <meta property="og:title" content="ブログにp5.jsを埋め込む" />
-    <meta property="twitter:title" content="ブログにp5.jsを埋め込む" />
+    <meta name="title" content="p5.jsでジェネレーティブアート：ローレンツアトラクタ" />
+    <meta property="og:title" content="p5.jsでジェネレーティブアート：ローレンツアトラクタ" />
+    <meta property="twitter:title" content="p5.jsでジェネレーティブアート：ローレンツアトラクタ" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/images/logo/logo.jpg">
 
-    <title>ブログにp5.jsを埋め込む-KFTamang Blog</title>
+    <title>p5.jsでジェネレーティブアート：ローレンツアトラクタ-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/p5js/">
+    <link rel="canonical" href="/post/gen/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@
                         </a>
                         
                     </div>
-                    <h1>ブログにp5.jsを埋め込む</h1>
+                    <h1>p5.jsでジェネレーティブアート：ローレンツアトラクタ</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -181,9 +181,9 @@
 			    KFTamang
 			 
 			on 
-			Sunday, April 18, 2021
+			Tuesday, April 20, 2021
                         
-                            <span id="/post/p5js/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/gen/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -229,54 +229,21 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#ショートコード">ショートコード</a></li>
-    <li><a href="#使い方">使い方</a></li>
-    <li><a href="#具体例">具体例</a></li>
-    <li><a href="#参考文献">参考文献</a></li>
+    <li><a href="#ローレンツアトラクタ">ローレンツアトラクタ</a></li>
+    <li><a href="#コード">コード</a></li>
   </ul>
 </nav>
                 
-                <h1 id="ビジュアルプログラミング言語processingをhugoブログに埋め込む">ビジュアルプログラミング言語processingをHUGOブログに埋め込む</h1>
-<p>processingとは視覚的表現などを簡単にできることを目指したC言語ライクなプログラミング言語です。
-C言語などと異なり、描画のための関数などが最初から準備されており、プログラミングに詳しくないアーティストや
-子供でも視覚的作品を作ることができます。</p>
-<p>今回はprocessingのjavascript移植版であるp5.jsをHUGOブログに埋め込んで見たいと思います。</p>
-<h2 id="ショートコード">ショートコード</h2>
-<p>静的サイトジェネレーターであるHUGOにはショートコードという機能があり、事前に設定したhtmlを任意の位置に展開することができます。
-また、展開先にパラメータを渡すこともできます。
-今回はこのショートコードを使ってp5.jsを実行する環境を作りました。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-p5js.html" data-lang="p5js.html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p5js&#34;</span>&gt;
-    &lt;<span style="color:#f92672">iframe</span> <span style="color:#a6e22e">srcdoc</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;  &lt;head&gt;
-</span><span style="color:#e6db74">        &lt;script src=&amp;quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js&amp;quot&gt;&lt;/script&gt;
-</span><span style="color:#e6db74">        &lt;script src=&amp;quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/addons/p5.sound.min.js&amp;quot&gt;&lt;/script&gt;
-</span><span style="color:#e6db74">        &lt;link rel=&amp;quotstylesheet&amp;quot type=&amp;quottext/css&amp;quot href=&amp;quotstyle.css&amp;quot&gt;
-</span><span style="color:#e6db74">        &lt;meta charset=&amp;quotutf-8&amp;quot /&gt;
-</span><span style="color:#e6db74">    
-</span><span style="color:#e6db74">      &lt;/head&gt;
-</span><span style="color:#e6db74">      &lt;body&gt;
-</span><span style="color:#e6db74">        &lt;script src=&amp;quot/p5js/{{.Get 0}}.js&amp;quot&gt;&lt;/script&gt;
-</span><span style="color:#e6db74">      &lt;/body&gt;&#34;</span>
-      <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;400px&#34;</span>&gt;&lt;/<span style="color:#f92672">iframe</span>&gt;
-&lt;/<span style="color:#f92672">div</span>&gt;
-
-</code></pre></div><p>このショートコードは<code>iframe</code>に<code>srcdoc</code>でページの全体を文字列として渡しています。
-パラメーターとしてファイル名を渡すことで、/p5jsディレクトリ以下のp5.jsファイルを実行できます。</p>
-<h2 id="使い方">使い方</h2>
-<p>使用しているテーマ内の<code>layouts/partilas/</code>に上記の<code>p5js.html</code>を配置します。
-これでショートコードp5jsが定義され、使えるようになりました。</p>
-<p>あとはブログの任意の個所で<code>&quot;{ {&lt; p5js (ファイル名).js &gt;} }&quot;</code>と記述すれば<code>/p5js</code>ディレクトリに配置されてある<code>(ファイル名).js</code>が実行されます。
-(二つの<code>{</code>の間のスペースは削除してください。)</p>
-<h2 id="具体例">具体例</h2>
-<p>test.js</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-test.js" data-lang="test.js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>() {
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myCanvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createCanvas</span>(<span style="color:#a6e22e">windowWidth</span>, <span style="color:#a6e22e">windowHeight</span>);
-    <span style="color:#a6e22e">myCanvas</span>.<span style="color:#66d9ef">class</span>(<span style="color:#e6db74">&#39;backgroundsketch&#39;</span>);
-}
-
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">mouseMoved</span>() {
-	<span style="color:#a6e22e">ellipse</span>(<span style="color:#a6e22e">mouseX</span>, <span style="color:#a6e22e">mouseY</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>);
-}
-</code></pre></div><div class="p5js">
+                <h1 id="ジェネレーティブアートを試してみる">ジェネレーティブアートを試してみる</h1>
+<p>先日の記事でp5.jsをブログで使えるようにしてみたので、カオス系のモデルとして有名なローレンツモデルを少しいじって
+ジェネレーティブアートっぽくしてみる。</p>
+<p>ローレンツモデルについてはググって出てくる以下を参照した。</p>
+<ul>
+<li><a href="http://hatano-lab.iis.u-tokyo.ac.jp/thesis/soturon2000/soturon_fujibuchi.pdf">ローレンツモデルにおけるカオスの定量的解析</a></li>
+<li><a href="https://www.metsoc.jp/tenki/pdf/2014/2014_03_0075.pdf">ローレンツ・カオスの理解の仕方</a></li>
+</ul>
+<h2 id="ローレンツアトラクタ">ローレンツアトラクタ</h2>
+<div class="p5js">
     <iframe srcdoc="  <head>
         <script src=&quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js&quot></script>
         <script src=&quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/addons/p5.sound.min.js&quot></script>
@@ -285,25 +252,77 @@ C言語などと異なり、描画のための関数などが最初から準備�
     
       </head>
       <body>
-        <script src=&quot/p5js/test.js&quot></script>
+        <script src=&quot/p5js/gen.js&quot></script>
       </body>"
       width="100%" height="400px"></iframe>
 </div>
 
 
-<h2 id="参考文献">参考文献</h2>
-<ul>
-<li>
-<p>p5.jsのサイトへの埋め込みかた <a href="https://github.com/processing/p5.js/wiki/Embedding-p5.js">Embedding p5.js</a></p>
-</li>
-<li>
-<p>p5.jsについて <a href="https://happycoding.io/tutorials/p5js/web-dev">From p5.js to Web Dev</a></p>
-</li>
-<li>
-<p>HUGOのショートコードの作り方 <a href="https://gohugo.io/templates/shortcode-templates/">Create Your Own Shortcodes - HUGO</a></p>
-</li>
-</ul>
+<h2 id="コード">コード</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lorenz.js" data-lang="lorenz.js">
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Lorenz</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">z</span>){
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">z</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>;
+    
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef3</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centerx</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centery</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">update</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">+=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span><span style="color:#f92672">*</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef1</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef1</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">+=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span><span style="color:#f92672">*</span>(<span style="color:#f92672">-</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span> <span style="color:#f92672">+=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span><span style="color:#f92672">*</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef3</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.001</span>;
+        <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">130</span>){
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>
+        }
+    }
 
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">show</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
+        <span style="color:#a6e22e">noStroke</span>();
+        <span style="color:#a6e22e">fill</span>(<span style="color:#a6e22e">color</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">50</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>));
+        <span style="color:#a6e22e">ellipse</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#ae81ff">20</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centerx</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centery</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>);
+        <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span>){
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.1</span>;
+            <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span><span style="color:#f92672">&gt;</span><span style="color:#ae81ff">255</span>){
+                <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            }
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">0.1</span>;
+            <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span>){
+                <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            }
+        }
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span>);
+    }
+}
+
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> [];
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>(){
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myCanvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createCanvas</span>(<span style="color:#a6e22e">windowWidth</span>, <span style="color:#a6e22e">windowHeight</span>);
+    <span style="color:#a6e22e">myCanvas</span>.<span style="color:#66d9ef">class</span>(<span style="color:#e6db74">&#39;backgroundsketch&#39;</span>);
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">10</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+        <span style="color:#a6e22e">l</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Lorenz</span>(<span style="color:#a6e22e">i</span>, <span style="color:#ae81ff">10.0</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>, <span style="color:#ae81ff">10.0</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>);
+
+    }
+}
+
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw</span>(){
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">10</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+        <span style="color:#a6e22e">l</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">update</span>();
+        <span style="color:#a6e22e">l</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">show</span>();
+    }    
+}
+</code></pre></div>
 
                 
 
@@ -311,15 +330,10 @@ C言語などと異なり、描画のための関数などが最初から準備�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/professionalism/" data-toggle="tooltip" data-placement="top" title="プロ意識について">&larr;
+                        <a href="/post/p5js/" data-toggle="tooltip" data-placement="top" title="ブログにp5.jsを埋め込む">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/gen/" data-toggle="tooltip" data-placement="top" title="p5.jsでジェネレーティブアート：ローレンツアトラクタ">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
