@@ -6,10 +6,19 @@
     <description>Recent content in p5.js on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 20 Apr 2021 22:00:09 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 01 May 2021 08:00:09 +0900</lastBuildDate>
     
 	<atom:link href="https://KFTamang.github.io/tags/p5.js/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>p5.jsでマンデルブロー集合</title>
+      <link>https://KFTamang.github.io/post/mandelbrot/</link>
+      <pubDate>Sat, 01 May 2021 08:00:09 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/post/mandelbrot/</guid>
+      <description>マンデルブロー集合 &#34; width=&#34;100%&#34; height=&#34;400px&#34; コード function setup(){ var myCanvas = createCanvas(windowWidth, windowHeight); myCanvas.class(&amp;#39;backgroundsketch&amp;#39;); loadPixels(); draw_mandelbrot(); } function draw_mandelbrot(){ for(var i=0;i&amp;lt;windowWidth;i++){ for(var k=0;k&amp;lt;windowHeight;k++){ const max = 100; let n = max; let _x = 4.0 * (i / windowWidth - 0.5); let _y = 4.0 * (k / windowHeight - 0.5); let a = 0.0; let b = 0.0; while(n &amp;gt;</description>
+    </item>
     
     <item>
       <title>p5.jsでジェネレーティブアート：ローレンツアトラクタ</title>

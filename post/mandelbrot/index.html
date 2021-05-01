@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="p5.jsでジェネレーティブアート：ローレンツアトラクタ" />
-    <meta property="og:title" content="p5.jsでジェネレーティブアート：ローレンツアトラクタ" />
-    <meta property="twitter:title" content="p5.jsでジェネレーティブアート：ローレンツアトラクタ" />
+    <meta name="title" content="p5.jsでマンデルブロー集合" />
+    <meta property="og:title" content="p5.jsでマンデルブロー集合" />
+    <meta property="twitter:title" content="p5.jsでマンデルブロー集合" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/images/logo/logo.jpg">
 
-    <title>p5.jsでジェネレーティブアート：ローレンツアトラクタ-KFTamang Blog</title>
+    <title>p5.jsでマンデルブロー集合-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/gen/">
+    <link rel="canonical" href="/post/mandelbrot/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@
                         </a>
                         
                     </div>
-                    <h1>p5.jsでジェネレーティブアート：ローレンツアトラクタ</h1>
+                    <h1>p5.jsでマンデルブロー集合</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -181,9 +181,9 @@
 			    KFTamang
 			 
 			on 
-			Tuesday, April 20, 2021
+			Saturday, May 1, 2021
                         
-                            <span id="/post/gen/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/mandelbrot/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -229,20 +229,13 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#ローレンツアトラクタ">ローレンツアトラクタ</a></li>
+    <li><a href="#マンデルブロー集合">マンデルブロー集合</a></li>
     <li><a href="#コード">コード</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
   </ul>
 </nav>
                 
-                <h1 id="ジェネレーティブアートを試してみる">ジェネレーティブアートを試してみる</h1>
-<p>先日の記事でp5.jsをブログで使えるようにしてみたので、カオス系のモデルとして有名なローレンツモデルを少しいじって
-ジェネレーティブアートっぽくしてみる。</p>
-<p>ローレンツモデルについてはググって出てくる以下を参照した。</p>
-<ul>
-<li><a href="http://hatano-lab.iis.u-tokyo.ac.jp/thesis/soturon2000/soturon_fujibuchi.pdf">ローレンツモデルにおけるカオスの定量的解析</a></li>
-<li><a href="https://www.metsoc.jp/tenki/pdf/2014/2014_03_0075.pdf">ローレンツ・カオスの理解の仕方</a></li>
-</ul>
-<h2 id="ローレンツアトラクタ">ローレンツアトラクタ</h2>
+                <h2 id="マンデルブロー集合">マンデルブロー集合</h2>
 <div class="p5js">
     <iframe srcdoc="  <head>
         <script src=&quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js&quot></script>
@@ -252,76 +245,68 @@
     
       </head>
       <body>
-        <script src=&quot/p5js/gen.js&quot></script>
+        <script src=&quot/p5js/mandelbrot.js&quot></script>
       </body>"
       width="100%" height="400px"></iframe>
 </div>
 
 
 <h2 id="コード">コード</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lorenz.js" data-lang="lorenz.js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Lorenz</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">z</span>){
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">z</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>;
-    
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef3</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centerx</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centery</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">update</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
-        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">+=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span><span style="color:#f92672">*</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef1</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef1</span>);
-        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">+=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span><span style="color:#f92672">*</span>(<span style="color:#f92672">-</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span>);
-        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span> <span style="color:#f92672">+=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dt</span><span style="color:#f92672">*</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef3</span>);
-        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.001</span>;
-        <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">130</span>){
-            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coef2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>
-        }
-    }
-
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">show</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
-        <span style="color:#a6e22e">noStroke</span>();
-        <span style="color:#a6e22e">fill</span>(<span style="color:#a6e22e">color</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">50</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>  <span style="color:#f92672">+</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">-</span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>));
-        <span style="color:#a6e22e">ellipse</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#ae81ff">20</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centerx</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">centery</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">z</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>);
-        <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span>){
-            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.1</span>;
-            <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span><span style="color:#f92672">&gt;</span><span style="color:#ae81ff">255</span>){
-                <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-            }
-        }<span style="color:#66d9ef">else</span>{
-            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">0.1</span>;
-            <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span>){
-                <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-            }
-        }
-
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pos</span>);
-    }
-}
-
-<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> [];
-
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>(){
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mandelbrot.js" data-lang="mandelbrot.js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>(){
     <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myCanvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createCanvas</span>(<span style="color:#a6e22e">windowWidth</span>, <span style="color:#a6e22e">windowHeight</span>);
     <span style="color:#a6e22e">myCanvas</span>.<span style="color:#66d9ef">class</span>(<span style="color:#e6db74">&#39;backgroundsketch&#39;</span>);
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">100</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
-        <span style="color:#a6e22e">l</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Lorenz</span>(<span style="color:#a6e22e">i</span>, <span style="color:#ae81ff">10.0</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>, <span style="color:#ae81ff">10.0</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>);
+    <span style="color:#a6e22e">loadPixels</span>();
+    <span style="color:#a6e22e">draw_mandelbrot</span>();
+}
 
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw_mandelbrot</span>(){
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">windowWidth</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">k</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">k</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">windowHeight</span>;<span style="color:#a6e22e">k</span><span style="color:#f92672">++</span>){
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">max</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">max</span>;
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">windowWidth</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>);
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_y</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">windowHeight</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>);
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+            
+            <span style="color:#66d9ef">while</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span> ){
+                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">_x</span>;
+                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">_y</span>;
+                <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_a</span>;
+                <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_b</span>;
+                <span style="color:#a6e22e">n</span><span style="color:#f92672">--</span>;
+            }
+
+            <span style="color:#a6e22e">draw_pixel</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">max</span>);
+        }
     }
 }
 
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw_pixel</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">max</span>){
+
+
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelDensity</span>();
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">d</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">d</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>) {
+          <span style="color:#75715e">// loop over
+</span><span style="color:#75715e"></span>          <span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> ((<span style="color:#a6e22e">y</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">j</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">width</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">x</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">i</span>));
+          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">255</span><span style="color:#f92672">/</span><span style="color:#a6e22e">max</span>;
+          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">255</span><span style="color:#f92672">/</span><span style="color:#a6e22e">max</span>;
+          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">255</span><span style="color:#f92672">/</span><span style="color:#a6e22e">max</span>;
+          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span>;
+        }
+    }
+}
 
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw</span>(){
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">100</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
-        <span style="color:#a6e22e">l</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">update</span>();
-        <span style="color:#a6e22e">l</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">show</span>();
-    }    
+    <span style="color:#a6e22e">updatePixels</span>();
 }
-</code></pre></div>
+</code></pre></div><h2 id="参考文献">参考文献</h2>
+<ul>
+<li><a href="https://www1.econ.hit-u.ac.jp/kawahira/courses/mandel.pdf">マンデルブロー集合　-2次関数の複素力学系入門-</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%B3%E3%83%87%E3%83%AB%E3%83%96%E3%83%AD%E9%9B%86%E5%90%88">マンデルブロ集合 - Wikipedia</a></li>
+</ul>
+
 
                 
 
@@ -329,15 +314,10 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/p5js/" data-toggle="tooltip" data-placement="top" title="ブログにp5.jsを埋め込む">&larr;
+                        <a href="/post/gen/" data-toggle="tooltip" data-placement="top" title="p5.jsでジェネレーティブアート：ローレンツアトラクタ">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/mandelbrot/" data-toggle="tooltip" data-placement="top" title="p5.jsでマンデルブロー集合">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
