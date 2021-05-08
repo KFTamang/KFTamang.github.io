@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="p5.jsでマンデルブロー集合" />
-    <meta property="og:title" content="p5.jsでマンデルブロー集合" />
-    <meta property="twitter:title" content="p5.jsでマンデルブロー集合" />
+    <meta name="title" content="モーターの制御2[マイクロマウス]" />
+    <meta property="og:title" content="モーターの制御2[マイクロマウス]" />
+    <meta property="twitter:title" content="モーターの制御2[マイクロマウス]" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/images/logo/logo.jpg">
 
-    <title>p5.jsでマンデルブロー集合-KFTamang Blog</title>
+    <title>モーターの制御2[マイクロマウス]-KFTamang Blog</title>
 
-    <link rel="canonical" href="/post/mandelbrot/">
+    <link rel="canonical" href="/post/micromouse3/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -168,12 +168,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/p5.js" title="p5.js">
-                            p5.js
+                        <a class="tag" href="/tags/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%83%9E%E3%82%A6%E3%82%B9" title="マイクロマウス">
+                            マイクロマウス
                         </a>
                         
                     </div>
-                    <h1>p5.jsでマンデルブロー集合</h1>
+                    <h1>モーターの制御2[マイクロマウス]</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -181,9 +181,9 @@
 			    KFTamang
 			 
 			on 
-			Saturday, May 1, 2021
+			Saturday, May 8, 2021
                         
-                            <span id="/post/mandelbrot/" class="leancloud_visitors meta_data_item" data-flag-title="">
+                            <span id="/post/micromouse3/" class="leancloud_visitors meta_data_item" data-flag-title="">
     <span class="post-meta-item-icon">
       <span class="octicon octicon-eye"></span> 
     </span>
@@ -229,82 +229,82 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#マンデルブロー集合">マンデルブロー集合</a></li>
-    <li><a href="#コード">コード</a></li>
-    <li><a href="#参考文献">参考文献</a></li>
+    <li><a href="#これまでの振り返り">これまでの振り返り</a></li>
+    <li><a href="#制御対象を考える">制御対象を考える</a></li>
+    <li><a href="#フィードバック制御を取り入れる">フィードバック制御を取り入れる</a></li>
+    <li><a href="#実走テスト">実走テスト</a></li>
+    <li><a href="#余談ジグは大事">余談：ジグは大事</a></li>
+    <li><a href="#制御コード">制御コード</a></li>
+    <li><a href="#参考資料">参考資料</a></li>
+    <li><a href="#マイクロマウスシリーズ">マイクロマウスシリーズ</a></li>
   </ul>
 </nav>
                 
-                <h2 id="マンデルブロー集合">マンデルブロー集合</h2>
-<div class="p5js">
-    <iframe srcdoc="  <head>
-        <script src=&quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js&quot></script>
-        <script src=&quot https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/addons/p5.sound.min.js&quot></script>
-        <link rel=&quotstylesheet&quot type=&quottext/css&quot href=&quotstyle.css&quot>
-        <meta charset=&quotutf-8&quot />
-    
-      </head>
-      <body>
-        <script src=&quot/p5js/mandelbrot.js&quot></script>
-      </body>"
-      width="100%" height="400px"></iframe>
-</div>
-
-
-<h2 id="コード">コード</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mandelbrot.js" data-lang="mandelbrot.js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>(){
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myCanvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createCanvas</span>(<span style="color:#a6e22e">windowWidth</span>, <span style="color:#a6e22e">windowHeight</span>);
-    <span style="color:#a6e22e">myCanvas</span>.<span style="color:#66d9ef">class</span>(<span style="color:#e6db74">&#39;backgroundsketch&#39;</span>);
-    <span style="color:#a6e22e">loadPixels</span>();
-    <span style="color:#a6e22e">draw_mandelbrot</span>();
-}
-
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw_mandelbrot</span>(){
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">windowWidth</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">k</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">k</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">windowHeight</span>;<span style="color:#a6e22e">k</span><span style="color:#f92672">++</span>){
-            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">max</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
-            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">max</span>;
-            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">windowWidth</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>);
-            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_y</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">windowHeight</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>);
-            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
-            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
-            
-            <span style="color:#66d9ef">while</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span> ){
-                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">_x</span>;
-                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">_y</span>;
-                <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_a</span>;
-                <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_b</span>;
-                <span style="color:#a6e22e">n</span><span style="color:#f92672">--</span>;
-            }
-
-            <span style="color:#a6e22e">draw_pixel</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">max</span>);
-        }
-    }
-}
-
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw_pixel</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">max</span>){
-
-
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelDensity</span>();
-    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">d</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">d</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>) {
-          <span style="color:#75715e">// loop over
-</span><span style="color:#75715e"></span>          <span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> ((<span style="color:#a6e22e">y</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">j</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">width</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">x</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">i</span>));
-          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">255</span><span style="color:#f92672">/</span><span style="color:#a6e22e">max</span>;
-          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">255</span><span style="color:#f92672">/</span><span style="color:#a6e22e">max</span>;
-          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">255</span><span style="color:#f92672">/</span><span style="color:#a6e22e">max</span>;
-          <span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span>;
-        }
-    }
-}
-
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw</span>(){
-    <span style="color:#a6e22e">updatePixels</span>();
-}
-</code></pre></div><h2 id="参考文献">参考文献</h2>
+                <h1 id="モーターの制御その2">モーターの制御　その2</h1>
+<p><a href="https://kftamang.github.io/post/micromouse2/">前回の記事</a>ではモーターにフィードフォワード制御を適用し、回転数を指定して動作させました。
+今回の記事では、フィードバック制御まで行ってまっすぐマウスをまっすぐ走らせてみたいと思います。
+まっすぐ走り、90度曲がることができれば、マイクロマウスの競技を完遂するにあたって一つのマイルストーンに
+達したといっていいでしょう。</p>
+<h2 id="これまでの振り返り">これまでの振り返り</h2>
+<p>まず、前回行ったことを振り返ってみたいと思います。</p>
+<p>DCモーターの特性として、モーター端子間の電圧は</p>
 <ul>
-<li><a href="https://www1.econ.hit-u.ac.jp/kawahira/courses/mandel.pdf">マンデルブロー集合　-2次関数の複素力学系入門-</a></li>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%B3%E3%83%87%E3%83%AB%E3%83%96%E3%83%AD%E9%9B%86%E5%90%88">マンデルブロ集合 - Wikipedia</a></li>
+<li>軸の回転数$\omega$に比例する成分</li>
+<li>軸に発生するトルク$T$に比例する成分
+の和となるのでした。</li>
+</ul>
+<p>回転数は機体の速度、トルクは機体の加速度に対応します。
+無負荷時のモーターが定速回転するときトルクは0となると近似することで、モーターをある速度で回転させるために必要なPWMのデューティー比を計算したのでした。</p>
+<p>では、モーターそれぞれを独立に回転させることから進んで、機体をまっすぐ前進させるにはどうしたらいいでしょうか。</p>
+<h2 id="制御対象を考える">制御対象を考える</h2>
+<p>マウス機体がまっすぐ走るためには、モーター二つが同じだけ回転する必要があります。
+前回はモーターの回転数自体を制御の対象としたので、これを素直に拡張すればモーター二つの回転数を制御するということになります。
+しかし今回は抽象度を上げて機体の速度と角速度を制御対象としてみましょう。
+こうすると、迷路を解くときに運動の指定がしやすくなります。
+（参考：<a href="https://www.rt-shop.jp/blog/archives/3200">DCモータを使ったマイクロマウス入門⑤</a>）</p>
+<h2 id="フィードバック制御を取り入れる">フィードバック制御を取り入れる</h2>
+<p>制御の対象を速度と角速度にしたところで、さらにフィードバック制御を取り入れていきましょう。
+フィードバックにはモーターについているエンコーダーを使います。
+これでモーターがどれくらい回ったのか知ることができます。</p>
+<p>まっすぐ進むには角速度が0となるように制御します。</p>
+<p>実際にどうやっているかはコード<a href="https://kftamang.github.io/post/micromouse3/#%E5%88%B6%E5%BE%A1%E3%82%B3%E3%83%BC%E3%83%89">*1</a>を参照してください。</p>
+<p>エンコーダーからの出力を使ってフィードバック制御完成！まっすぐ走行！といけばいいのですが、
+いろいろやってみてもまっすぐ進んでくれませんでした。</p>
+<p>いろいろ試した結果、判明したのは左側のモーターのエンコーダーからの出力が、仕様より少ないのです。
+ソフトウェアのミスかとも考えましたが、オシロスコープで波形を見ると右側のエンコーダーと周期がずれており、
+マイコンに入力される前から信号がおかしいようです。
+この件については現在シチズンマイクロ社に問い合わせています。</p>
+<p>何がおかしくなっているのかはまだわかりませんが、とりあえず事態は把握できたのでまっすぐ進ませることはできそうです。
+エンコーダーのパルス数を進んだ距離に変換する係数を左右で別に用意することにしました。
+この係数を求めるためにいろいろ計算をしたりしてみましたが、結局のところ地面の上を1m手で押して走らせて、実測するのが一番でした。</p>
+<h2 id="実走テスト">実走テスト</h2>
+<p>というわけで、1m/sで1m走らせてみたのが以下の動画です。最初は1m/s^2で等加速させています。
+1m進んだらブレーキをかけるようにしているので、少しオーバーして止まっています。</p>
+<p>かなりまっすぐに進んでいるのではないでしょうか。
+次は
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/Z0iManFRjEo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<h2 id="余談ジグは大事">余談：ジグは大事</h2>
+<p>ちなみに、走行テストの際にはこのようなジグを作成して使用しました。
+段ボールを床に貼り付けただけです。
+しかしこの段ボールとフローリングの模様によってテストに再現性が出て、圧倒的に走行の評価がしやすくなりました。
+実験にもっとも大事なのは再現性だと思います。
+<img src="/images/PXL_20210504_071956901.jpg" alt="走行テスト用のジグ"></p>
+<h2 id="制御コード">制御コード</h2>
+<script src="https://gist-it.appspot.com/github/KFTamang/Bontaco/blob/master/Bontaco/bontaco_drive.c"></script>
+
+<h2 id="参考資料">参考資料</h2>
+<ul>
+<li><a href="https://www.rt-shop.jp/blog/archives/3200">DCモータを使ったマイクロマウス入門⑤ - RT Robot Shop Blog</a></li>
+<li><a href="https://rt-net.jp/mobility/archives/6571">マイクロマウス研修（kora編）[12]自律走行の解説 - アールティ 移動型ロボットブログ</a></li>
+</ul>
+<h2 id="マイクロマウスシリーズ">マイクロマウスシリーズ</h2>
+<ul>
+<li><a href="https://kftamang.github.io/micromouse1">ハードウェア編</a></li>
+<li><a href="https://kftamang.github.io/post/micromouse2/">モーターの制御1</a></li>
 </ul>
 
 
@@ -314,15 +314,10 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/gen/" data-toggle="tooltip" data-placement="top" title="p5.jsでジェネレーティブアート：ローレンツアトラクタ">&larr;
+                        <a href="/post/mandelbrot/" data-toggle="tooltip" data-placement="top" title="p5.jsでマンデルブロー集合">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/micromouse3/" data-toggle="tooltip" data-placement="top" title="モーターの制御2[マイクロマウス]">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

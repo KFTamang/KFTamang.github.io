@@ -6,10 +6,19 @@
     <description>Recent content in Tech on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 01 May 2021 08:00:09 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 08 May 2021 18:17:27 +0900</lastBuildDate>
     
 	<atom:link href="https://KFTamang.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>モーターの制御2[マイクロマウス]</title>
+      <link>https://KFTamang.github.io/post/micromouse3/</link>
+      <pubDate>Sat, 08 May 2021 18:17:27 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/post/micromouse3/</guid>
+      <description>モーターの制御 その2 前回の記事ではモーターにフィードフォワード制御を適用し、回転数を指定して動作させました。 今回の記事では、フィードバック制</description>
+    </item>
     
     <item>
       <title>p5.jsでマンデルブロー集合</title>
