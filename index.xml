@@ -6,10 +6,19 @@
     <description>Recent content on KFTamang Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 08 May 2021 18:17:27 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 30 Mar 2022 21:00:09 +0900</lastBuildDate>
     
 	<atom:link href="https://KFTamang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>本質から理解するgit 改訂版</title>
+      <link>https://KFTamang.github.io/post/git3/</link>
+      <pubDate>Wed, 30 Mar 2022 21:00:09 +0900</pubDate>
+      
+      <guid>https://KFTamang.github.io/post/git3/</guid>
+      <description>前書き 以前、本質から理解するgitという記事を書きました。 書きましたが、今読み直してみると技術的な枝葉についての記載が多く、とても本質から理</description>
+    </item>
     
     <item>
       <title>モーターの制御2[マイクロマウス]</title>
